@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button10;
     TextView scoreboard, timerSeconds, timerMinutes;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
         scoreboard = findViewById(R.id.gameScore);
         timerSeconds = findViewById(R.id.timer2);
         timerMinutes = findViewById(R.id.timer1);
+
+        //manual set of timer
+        secondTimer = 0;
+        minuteTimer = 2;
 
         button1 = findViewById(R.id.hit1);
         button2 = findViewById(R.id.hit2);
@@ -47,67 +50,72 @@ public class MainActivity extends AppCompatActivity {
         button9 = findViewById(R.id.hit9);
         button10 = findViewById(R.id.hit10);
 
+        //initialize timer and the mole
         TimerDigital();
         setTheMole();
 
     }
 
-    //code for the timer located at the upper right hand corner of the game
-    //TODO Change code into a countdown timer
+
+    //code for the countdown timer located at the upper right hand corner of the game
     public void TimerDigital() {
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Do something after 0.5s = 500ms
-                secondTimer++;
+        handler.postDelayed(() -> {
+            // Do something after 1s = 1000ms
 
-                //for 1-9 secs, display is "00" to "09"
-                if (secondTimer >= 10) {
-                    timerSeconds.setText(String.valueOf(secondTimer));
-                }
-                else if (minuteTimer >= 10) {
-                    timerMinutes.setText(String.valueOf(minuteTimer));
-                }
-                else {
-                    String nilToNineSeconds = "0" + secondTimer;
-                    String nilToNineMinutes = "0" + minuteTimer;
-                    System.out.println(nilToNineSeconds);
-                    timerSeconds.setText(nilToNineSeconds);
-                    timerMinutes.setText(nilToNineMinutes);
-                }
+            //every 60 secs, subtract 1 from mins
+            if (secondTimer == 0 && minuteTimer != 0) {
+                secondTimer = 60;
+                minuteTimer--;
+
+            }
+            secondTimer--;
+
+            //for 1-9 secs, display is "00" to "09"
+            if (secondTimer >= 10) {
+                timerSeconds.setText(String.valueOf(secondTimer));
+            }
+            else {
+                timerSeconds.setText("0" + secondTimer);
+            }
+
+            if (minuteTimer >= 10) {
+                timerMinutes.setText(String.valueOf(minuteTimer));
+            }
+            else {
+                timerMinutes.setText("0" + minuteTimer);
+            }
+
+            if (secondTimer == 0 && minuteTimer == 0) {
+            }
+            else {
                 TimerDigital();
             }
+
         }, 1000);
 
-        //after 59 secs, revert to 0 secs then add 1 to mins
-        if (secondTimer == 59) {
-            secondTimer = 0;
-            minuteTimer++;
-        }
     }
+
 
     //helps revert to default color state
     public void InitialState() {
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Do something after 0.5s = 500ms
-                button1.setBackgroundColor(0xFF311B92);
-                button2.setBackgroundColor(0xFF311B92);
-                button3.setBackgroundColor(0xFF311B92);
-                button4.setBackgroundColor(0xFF311B92);
-                button5.setBackgroundColor(0xFF311B92);
-                button6.setBackgroundColor(0xFF311B92);
-                button7.setBackgroundColor(0xFF311B92);
-                button8.setBackgroundColor(0xFF311B92);
-                button9.setBackgroundColor(0xFF311B92);
-                button10.setBackgroundColor(0xFF311B92);
+        handler.postDelayed(() -> {
+            // Do something after 0.5s = 500ms
+            button1.setBackgroundColor(0xFF311B92);
+            button2.setBackgroundColor(0xFF311B92);
+            button3.setBackgroundColor(0xFF311B92);
+            button4.setBackgroundColor(0xFF311B92);
+            button5.setBackgroundColor(0xFF311B92);
+            button6.setBackgroundColor(0xFF311B92);
+            button7.setBackgroundColor(0xFF311B92);
+            button8.setBackgroundColor(0xFF311B92);
+            button9.setBackgroundColor(0xFF311B92);
+            button10.setBackgroundColor(0xFF311B92);
 
-            }
         }, 500);
     }
+
 
     //hit method for each button
     public void hit1(View v) {
@@ -292,96 +300,89 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void setTheMole() {
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Do something after 0.5s = 500ms
-                int nextMole = moleGen.nextInt(10) + 1;
-                switch (nextMole) {
-                    case 1:
-                        isMole = 1;
-                        button1.setTextColor(0xFF76FF03);
-                        break;
-                    case 2:
-                        isMole = 2;
-                        button2.setTextColor(0xFF76FF03);
-                        break;
-                    case 3:
-                        isMole = 3;
-                        button3.setTextColor(0xFF76FF03);
-                        break;
-                    case 4:
-                        isMole = 4;
-                        button4.setTextColor(0xFF76FF03);
-                        break;
-                    case 5:
-                        isMole = 5;
-                        button5.setTextColor(0xFF76FF03);
-                        break;
-                    case 6:
-                        isMole = 6;
-                        button6.setTextColor(0xFF76FF03);
-                        break;
-                    case 7:
-                        isMole = 7;
-                        button7.setTextColor(0xFF76FF03);
-                        break;
-                    case 8:
-                        isMole = 8;
-                        button8.setTextColor(0xFF76FF03);
-                        break;
-                    case 9:
-                        isMole = 9;
-                        button9.setTextColor(0xFF76FF03);
-                        break;
-                    case 10:
-                        isMole = 10;
-                        button10.setTextColor(0xFF76FF03);
-                        break;
-                }
-
-                setTheMole();
-                NoMoleState();
+        handler.postDelayed(() -> {
+            // Do something every 1.5s = 1500ms
+            int nextMole = moleGen.nextInt(10) + 1;
+            switch (nextMole) {
+                case 1:
+                    isMole = 1;
+                    button1.setTextColor(0xFF76FF03);
+                    break;
+                case 2:
+                    isMole = 2;
+                    button2.setTextColor(0xFF76FF03);
+                    break;
+                case 3:
+                    isMole = 3;
+                    button3.setTextColor(0xFF76FF03);
+                    break;
+                case 4:
+                    isMole = 4;
+                    button4.setTextColor(0xFF76FF03);
+                    break;
+                case 5:
+                    isMole = 5;
+                    button5.setTextColor(0xFF76FF03);
+                    break;
+                case 6:
+                    isMole = 6;
+                    button6.setTextColor(0xFF76FF03);
+                    break;
+                case 7:
+                    isMole = 7;
+                    button7.setTextColor(0xFF76FF03);
+                    break;
+                case 8:
+                    isMole = 8;
+                    button8.setTextColor(0xFF76FF03);
+                    break;
+                case 9:
+                    isMole = 9;
+                    button9.setTextColor(0xFF76FF03);
+                    break;
+                case 10:
+                    isMole = 10;
+                    button10.setTextColor(0xFF76FF03);
+                    break;
             }
+
+            setTheMole();
+            NoMoleState();
         }, 1500);
     }
-
 
 
     //reverts button to default state a bit after button click
     public void NoMoleState() {
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Do something after 0.5s = 500ms
-                button1.setTextColor(Color.WHITE);
-                button1.setText("(✦‿✦)");
-                button2.setTextColor(Color.WHITE);
-                button2.setText("(✦‿✦)");
-                button3.setTextColor(Color.WHITE);
-                button3.setText("(✦‿✦)");
-                button4.setTextColor(Color.WHITE);
-                button4.setText("(✦‿✦)");
-                button5.setTextColor(Color.WHITE);
-                button5.setText("(✦‿✦)");
-                button6.setTextColor(Color.WHITE);
-                button6.setText("(✦‿✦)");
-                button7.setTextColor(Color.WHITE);
-                button7.setText("(✦‿✦)");
-                button8.setTextColor(Color.WHITE);
-                button8.setText("(✦‿✦)");
-                button9.setTextColor(Color.WHITE);
-                button9.setText("(✦‿✦)");
-                button10.setTextColor(Color.WHITE);
-                button10.setText("(✦‿✦)");
+        handler.postDelayed(() -> {
+            // Do something after 1.45s = 1450ms
+            button1.setTextColor(Color.WHITE);
+            button1.setText("(✦‿✦)");
+            button2.setTextColor(Color.WHITE);
+            button2.setText("(✦‿✦)");
+            button3.setTextColor(Color.WHITE);
+            button3.setText("(✦‿✦)");
+            button4.setTextColor(Color.WHITE);
+            button4.setText("(✦‿✦)");
+            button5.setTextColor(Color.WHITE);
+            button5.setText("(✦‿✦)");
+            button6.setTextColor(Color.WHITE);
+            button6.setText("(✦‿✦)");
+            button7.setTextColor(Color.WHITE);
+            button7.setText("(✦‿✦)");
+            button8.setTextColor(Color.WHITE);
+            button8.setText("(✦‿✦)");
+            button9.setTextColor(Color.WHITE);
+            button9.setText("(✦‿✦)");
+            button10.setTextColor(Color.WHITE);
+            button10.setText("(✦‿✦)");
 
-            }
         }, 1450);
     }
+
 
     public void AddScore() {
         score++;
