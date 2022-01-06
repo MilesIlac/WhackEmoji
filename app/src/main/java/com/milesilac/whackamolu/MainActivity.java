@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
         secondTimer = 0;
         minuteTimer = 2;
 
+        timerSeconds.setText("0" + secondTimer);
+        timerMinutes.setText("0" + minuteTimer);
+
         button1 = findViewById(R.id.hit1);
         button2 = findViewById(R.id.hit2);
         button3 = findViewById(R.id.hit3);
@@ -308,43 +311,53 @@ public class MainActivity extends AppCompatActivity {
             switch (nextMole) {
                 case 1:
                     isMole = 1;
-                    button1.setTextColor(0xFF76FF03);
+                    //button1.setTextColor(0xFF76FF03);
+                    button1.setTextColor(0xFFFFD54F);
                     break;
                 case 2:
                     isMole = 2;
-                    button2.setTextColor(0xFF76FF03);
+                    //button2.setTextColor(0xFF76FF03);
+                    button2.setTextColor(0xFFFFD54F);
                     break;
                 case 3:
                     isMole = 3;
-                    button3.setTextColor(0xFF76FF03);
+                    //button3.setTextColor(0xFF76FF03);
+                    button3.setTextColor(0xFFFFD54F);
                     break;
                 case 4:
                     isMole = 4;
-                    button4.setTextColor(0xFF76FF03);
+                    //button4.setTextColor(0xFF76FF03);
+                    button4.setTextColor(0xFFFFD54F);
                     break;
                 case 5:
                     isMole = 5;
-                    button5.setTextColor(0xFF76FF03);
+                    //button5.setTextColor(0xFF76FF03);
+                    button5.setTextColor(0xFFFFD54F);
                     break;
                 case 6:
                     isMole = 6;
-                    button6.setTextColor(0xFF76FF03);
+                    //button6.setTextColor(0xFF76FF03);
+                    button6.setTextColor(0xFFFFD54F);
                     break;
                 case 7:
                     isMole = 7;
-                    button7.setTextColor(0xFF76FF03);
+                    //button7.setTextColor(0xFF76FF03);
+                    button7.setTextColor(0xFFFFD54F);
                     break;
                 case 8:
                     isMole = 8;
-                    button8.setTextColor(0xFF76FF03);
+                    //button8.setTextColor(0xFF76FF03);
+                    button8.setTextColor(0xFFFFD54F);
                     break;
                 case 9:
                     isMole = 9;
-                    button9.setTextColor(0xFF76FF03);
+                    //button9.setTextColor(0xFF76FF03);
+                    button9.setTextColor(0xFFFFD54F);
                     break;
                 case 10:
                     isMole = 10;
-                    button10.setTextColor(0xFF76FF03);
+                    //button10.setTextColor(0xFF76FF03);
+                    button10.setTextColor(0xFFFFD54F);
                     break;
             }
 

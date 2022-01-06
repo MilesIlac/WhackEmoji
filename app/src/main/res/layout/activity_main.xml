@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentEnd="true">
 
         <TextView
             android:id="@+id/timer1"
@@ -75,9 +75,9 @@
             android:insetBottom="0dp"
             android:onClick="hit1"
             android:text="(✦‿✦)"
-            android:textSize="10sp"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
 
         <Button
