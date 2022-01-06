@@ -3,12 +3,16 @@ package com.milesilac.whackamolu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 
 import android.os.Bundle;
 
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.os.Handler;
 import android.widget.TextView;
@@ -17,14 +21,16 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    int score;
-    int isMole;
-    int secondTimer;
-    int minuteTimer;
+    private int score;
+    private int isMole;
+    private int secondTimer;
+    private int minuteTimer;
+    private int countdownDialogTimer;
 
     Random moleGen = new Random();
     Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button10;
-    TextView scoreboard, timerSeconds, timerMinutes;
+    TextView scoreboard, timerSeconds, timerMinutes, countdownDialog;
+    Dialog countdown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +42,23 @@ public class MainActivity extends AppCompatActivity {
         timerMinutes = findViewById(R.id.timer1);
 
         //manual set of timer
-        secondTimer = 0;
-        minuteTimer = 2;
+        secondTimer = 30;
+        minuteTimer = 0;
 
-        timerSeconds.setText("0" + secondTimer);
-        timerMinutes.setText("0" + minuteTimer);
+        //for 1-9 secs, display is "00" to "09"
+        if (secondTimer >= 10) {
+            timerSeconds.setText(String.valueOf(secondTimer));
+        }
+        else {
+            timerSeconds.setText("0" + secondTimer);
+        }
+
+        if (minuteTimer >= 10) {
+            timerMinutes.setText(String.valueOf(minuteTimer));
+        }
+        else {
+            timerMinutes.setText("0" + minuteTimer);
+        }
 
         button1 = findViewById(R.id.hit1);
         button2 = findViewById(R.id.hit2);
@@ -53,11 +71,41 @@ public class MainActivity extends AppCompatActivity {
         button9 = findViewById(R.id.hit9);
         button10 = findViewById(R.id.hit10);
 
-        //initialize timer and the mole
-        TimerDigital();
-        setTheMole();
+        countdown = new Dialog(this);
+        countdown.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        countdown.setContentView(R.layout.countdown);
+        countdown.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        countdown.setCancelable(true); //closes dialog
+        countdown.show();
+        countdown.setOnCancelListener(dialog -> {
+            TimerDigital();
+            setTheMole();
+        }); // starts game on dialog close
 
     }
+
+//    public void StartCountdown(View v) {
+//        countdownDialogTimer = 3;
+//        countdownDialog.setText(String.valueOf(countdownDialogTimer));
+//
+//        final Handler handler = new Handler();
+//        handler.postDelayed(() -> {
+//            // Do something after 1s = 1000ms
+//
+//            //for 1-9 secs, display is "00" to "09"
+//            if (countdownDialogTimer != -1) {
+//                countdownDialogTimer--;
+//                countdownDialog.setText(String.valueOf(countdownDialogTimer));
+//            }
+//            else {
+//                StartCountdown(v);
+//            }
+//
+//        }, 1000);
+//
+//        countdown.dismiss();
+//    }
+
 
 
     //code for the countdown timer located at the upper right hand corner of the game
@@ -407,4 +455,14 @@ public class MainActivity extends AppCompatActivity {
         scoreboard.setText(String.valueOf(score));
     }
 
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        if (countdownDialogTimer == -1) {
+//            //initialize timer and the mole
+//
+//        }
+//
+//    }
 }

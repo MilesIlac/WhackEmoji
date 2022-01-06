@@ -2,6 +2,8 @@ package com.milesilac.whackamolu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -11,10 +13,14 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 public class MenuActivity extends AppCompatActivity {
 
-    Button btnQuickPlay, btnCustomPlay, btnScore, btnCredits, btnQuit, btnCustomConfirmPlay, btnCustomBack, btnGit;
-    Dialog menuCustomPlay, menuScore, menuCredits;
+    private Button btnQuickPlay, btnCustomPlay, btnScore, btnCredits, btnQuit, btnCustomConfirmPlay, btnCustomBack, btnGit;
+    private Dialog menuCustomPlay, menuScore, menuCredits;
+    private RecyclerView scoreList;
+    private ScoreRecViewAdapter scoreRecViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +46,7 @@ public class MenuActivity extends AppCompatActivity {
         btnCustomConfirmPlay = menuCustomPlay.findViewById(R.id.btnPlay);
         btnCustomBack = menuCustomPlay.findViewById(R.id.btnBack);
 
-        //show custom game menu
-        btnCustomPlay.setOnClickListener(v -> menuCustomPlay.show());
+        btnCustomPlay.setOnClickListener(v -> menuCustomPlay.show()); //show custom game menu
 
         //TODO edit intent.putExtra();
         btnCustomConfirmPlay.setOnClickListener(v -> {
@@ -50,19 +55,30 @@ public class MenuActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        //close custom game menu
-        btnCustomBack.setOnClickListener(v -> menuCustomPlay.dismiss());
+        btnCustomBack.setOnClickListener(v -> menuCustomPlay.dismiss()); //close custom game menu
 
 
         //TODO create Scoreboard dialog, edit .setContentView
         menuScore = new Dialog(this);
         menuScore.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //menuCustomPlay.setContentView(R.layout.output);
-        //menuCustomPlay.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_background));
+        menuScore.setContentView(R.layout.scoreboard_dialog);
+        menuScore.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialog_background));
         menuScore.setCancelable(false);
 
-        btnScore = findViewById(R.id.menubtn3);
+        scoreList = menuScore.findViewById(R.id.scoreBoard);
+        scoreRecViewAdapter = new ScoreRecViewAdapter();
+        ArrayList<Score> allScores = new ArrayList<>();
+        allScores.add(new Score("Test01",100,0));
+        scoreRecViewAdapter.setAllScores(allScores);
 
+        scoreList.setAdapter(scoreRecViewAdapter);
+        scoreList.setLayoutManager(new LinearLayoutManager(this));
+
+        btnScore = findViewById(R.id.menubtn3);
+        btnCustomBack = menuScore.findViewById(R.id.btnBack);
+
+        btnScore.setOnClickListener(v -> menuScore.show()); //show scoreboard
+        btnCustomBack.setOnClickListener(v -> menuScore.dismiss()); //close scoreboard
 
         menuCredits = new Dialog(this);
         menuCredits.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -74,8 +90,7 @@ public class MenuActivity extends AppCompatActivity {
         btnGit = menuCredits.findViewById(R.id.btnGit);
         btnCustomBack = menuCredits.findViewById(R.id.btnBack);
 
-        //show credits
-        btnCredits.setOnClickListener(v -> menuCredits.show());
+        btnCredits.setOnClickListener(v -> menuCredits.show()); //show credits
 
         //view Github in local browser
         btnGit.setOnClickListener(v -> {
@@ -83,8 +98,7 @@ public class MenuActivity extends AppCompatActivity {
             startActivity(browserIntent);
         });
 
-        //close credits
-        btnCustomBack.setOnClickListener(v -> menuCredits.dismiss());
+        btnCustomBack.setOnClickListener(v -> menuCredits.dismiss()); //close credits
 
 
         btnQuit = findViewById(R.id.menubtn5);
