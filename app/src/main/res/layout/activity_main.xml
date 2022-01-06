@@ -74,7 +74,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:onClick="hit1"
-            android:text="(✦‿✦)"
+            android:text="(O‿O)"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="10sp" />
@@ -91,7 +91,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:onClick="hit2"
-            android:text="(✦‿✦)"
+            android:text="(O‿O)"
             android:textSize="10sp"
             android:textAllCaps="false"
             android:textColor="@color/white" />
@@ -108,7 +108,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:onClick="hit3"
-            android:text="(✦‿✦)"
+            android:text="(O‿O)"
             android:textSize="10sp"
             android:textAllCaps="false"
             android:textColor="@color/white" />
@@ -125,7 +125,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:onClick="hit4"
-            android:text="(✦‿✦)"
+            android:text="(O‿O)"
             android:textSize="10sp"
             android:textAllCaps="false"
             android:textColor="@color/white" />
@@ -142,7 +142,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:onClick="hit5"
-            android:text="(✦‿✦)"
+            android:text="(O‿O)"
             android:textSize="10sp"
             android:textAllCaps="false"
             android:textColor="@color/white" />
@@ -159,7 +159,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:onClick="hit6"
-            android:text="(✦‿✦)"
+            android:text="(O‿O)"
             android:textSize="10sp"
             android:textAllCaps="false"
             android:textColor="@color/white" />
@@ -176,7 +176,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:onClick="hit7"
-            android:text="(✦‿✦)"
+            android:text="(O‿O)"
             android:textSize="10sp"
             android:textAllCaps="false"
             android:textColor="@color/white" />
@@ -193,7 +193,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:onClick="hit8"
-            android:text="(✦‿✦)"
+            android:text="(O‿O)"
             android:textSize="10sp"
             android:textAllCaps="false"
             android:textColor="@color/white" />
@@ -209,7 +209,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:onClick="hit9"
-            android:text="(✦‿✦)"
+            android:text="(O‿O)"
             android:textSize="10sp"
             android:textAllCaps="false"
             android:textColor="@color/white" />
@@ -226,7 +226,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:onClick="hit10"
-            android:text="(✦‿✦)"
+            android:text="(O‿O)"
             android:textSize="10sp"
             android:textAllCaps="false"
             android:textColor="@color/white" />

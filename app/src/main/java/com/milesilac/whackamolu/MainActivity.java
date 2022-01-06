@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         timerMinutes = findViewById(R.id.timer1);
 
         //manual set of timer
-        secondTimer = 10;
+        secondTimer = 15;
         minuteTimer = 0;
 
         //for 1-9 secs, display is "00" to "09"
@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
                 playerInputName.setVisibility(View.VISIBLE);
                 thanks4Playing.setVisibility(View.VISIBLE);
                 btnMainMenu.setVisibility(View.VISIBLE);
-                btnMainMenu.setEnabled(true);
             }
             else {
                 ScoreAnimation();
@@ -411,51 +410,61 @@ public class MainActivity extends AppCompatActivity {
                     isMole = 1;
                     //btn1.setTextColor(0xFF76FF03);
                     btn1.setTextColor(0xFFFFD54F);
+                    btn1.setText("(✦‿✦)");
                     break;
                 case 2:
                     isMole = 2;
                     //btn2.setTextColor(0xFF76FF03);
                     btn2.setTextColor(0xFFFFD54F);
+                    btn2.setText("(✦‿✦)");
                     break;
                 case 3:
                     isMole = 3;
                     //btn3.setTextColor(0xFF76FF03);
                     btn3.setTextColor(0xFFFFD54F);
+                    btn3.setText("(✦‿✦)");
                     break;
                 case 4:
                     isMole = 4;
                     //btn4.setTextColor(0xFF76FF03);
                     btn4.setTextColor(0xFFFFD54F);
+                    btn4.setText("(✦‿✦)");
                     break;
                 case 5:
                     isMole = 5;
                     //btn5.setTextColor(0xFF76FF03);
                     btn5.setTextColor(0xFFFFD54F);
+                    btn5.setText("(✦‿✦)");
                     break;
                 case 6:
                     isMole = 6;
                     //btn6.setTextColor(0xFF76FF03);
                     btn6.setTextColor(0xFFFFD54F);
+                    btn6.setText("(✦‿✦)");
                     break;
                 case 7:
                     isMole = 7;
                     //btn7.setTextColor(0xFF76FF03);
                     btn7.setTextColor(0xFFFFD54F);
+                    btn7.setText("(✦‿✦)");
                     break;
                 case 8:
                     isMole = 8;
                     //btn8.setTextColor(0xFF76FF03);
                     btn8.setTextColor(0xFFFFD54F);
+                    btn8.setText("(✦‿✦)");
                     break;
                 case 9:
                     isMole = 9;
                     //btn9.setTextColor(0xFF76FF03);
                     btn9.setTextColor(0xFFFFD54F);
+                    btn9.setText("(✦‿✦)");
                     break;
                 case 10:
                     isMole = 10;
                     //btn10.setTextColor(0xFF76FF03);
                     btn10.setTextColor(0xFFFFD54F);
+                    btn10.setText("(✦‿✦)");
                     break;
             }
 
@@ -471,25 +480,25 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(() -> {
             // Do something after 1.45s = 1450ms
             btn1.setTextColor(Color.WHITE);
-            btn1.setText("(✦‿✦)");
+            btn1.setText("(O‿O)");
             btn2.setTextColor(Color.WHITE);
-            btn2.setText("(✦‿✦)");
+            btn2.setText("(O‿O)");
             btn3.setTextColor(Color.WHITE);
-            btn3.setText("(✦‿✦)");
+            btn3.setText("(O‿O)");
             btn4.setTextColor(Color.WHITE);
-            btn4.setText("(✦‿✦)");
+            btn4.setText("(O‿O)");
             btn5.setTextColor(Color.WHITE);
-            btn5.setText("(✦‿✦)");
+            btn5.setText("(O‿O)");
             btn6.setTextColor(Color.WHITE);
-            btn6.setText("(✦‿✦)");
+            btn6.setText("(O‿O)");
             btn7.setTextColor(Color.WHITE);
-            btn7.setText("(✦‿✦)");
+            btn7.setText("(O‿O)");
             btn8.setTextColor(Color.WHITE);
-            btn8.setText("(✦‿✦)");
+            btn8.setText("(O‿O)");
             btn9.setTextColor(Color.WHITE);
-            btn9.setText("(✦‿✦)");
+            btn9.setText("(O‿O)");
             btn10.setTextColor(Color.WHITE);
-            btn10.setText("(✦‿✦)");
+            btn10.setText("(O‿O)");
 
         }, 1450);
     }
