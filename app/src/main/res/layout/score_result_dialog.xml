@@ -3,85 +3,103 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="5dp">
+    android:padding="5dp"
+    android:id="@+id/scoreResultDialogLayout">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="#512DA8"
+        android:background="#311B92"
         app:cardCornerRadius="12dp"
         app:cardElevation="5dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_centerInParent="true"
-            android:background="#512DA8"
-            android:padding="10dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#311B92"
+            android:padding="5dp">
 
-            <ImageView
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:background="@mipmap/ic_launcher_round"
-                android:layout_gravity="center_horizontal"/>
-
-            <TextView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="SCORE"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                app:cardCornerRadius="12dp">
 
-            <TextView
-                android:id="@+id/totalScoreResult"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="0"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/white"
-                android:textSize="40sp"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerInParent="true"
+                    android:background="#512DA8"
+                    android:padding="10dp">
 
-            <EditText
-                android:id="@+id/playerInputName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Input your name..."
-                android:layout_gravity="center_horizontal"
-                android:textStyle="italic"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@color/white"
-                android:textSize="15sp"
-                android:visibility="gone"/>
+                    <ImageView
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:background="@mipmap/ic_launcher_round"
+                        android:layout_gravity="center_horizontal"/>
 
-            <TextView
-                android:id="@+id/thanks4Playing"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Thanks for playing!"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/white"
-                android:visibility="gone"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="SCORE"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#311B92"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/btnMainMenu"
-                android:text="MAIN MENU"
-                android:visibility="gone"/>
+                    <TextView
+                        android:id="@+id/totalScoreResult"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:text="0"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
+                        android:textSize="40sp"/>
+
+                    <EditText
+                        android:id="@+id/playerInputName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:hint="Input your name..."
+                        android:layout_gravity="center_horizontal"
+                        android:textStyle="italic"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:backgroundTint="@color/white"
+                        android:textSize="15sp"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/thanks4Playing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Thanks for playing!"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
+                        android:visibility="gone"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#311B92"
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/btnMainMenu"
+                        android:text="MAIN MENU"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 
+
     </com.google.android.material.card.MaterialCardView>
+
 
 </RelativeLayout>

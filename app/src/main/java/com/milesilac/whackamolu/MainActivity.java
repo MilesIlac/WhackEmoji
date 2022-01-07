@@ -13,22 +13,28 @@ import android.os.Bundle;
 
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.os.Handler;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int score;
+    private int score = 0;
     private int totalScore = 0;
     private int isMole;
     private int secondTimer;
     private int minuteTimer;
     private int countdownDialogTimer;
+
+    private RelativeLayout scoreResultDialogLayout;
 
     Random moleGen = new Random();
     Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btnMainMenu;
@@ -90,7 +96,8 @@ public class MainActivity extends AppCompatActivity {
         scoreResultDialog = new Dialog(this);
         scoreResultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         scoreResultDialog.setContentView(R.layout.score_result_dialog);
-        scoreResultDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialog_background));
+        scoreResultDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        scoreResultDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         scoreResultDialog.setCancelable(false); //closes dialog
 
 
@@ -98,13 +105,23 @@ public class MainActivity extends AppCompatActivity {
         playerInputName = scoreResultDialog.findViewById(R.id.playerInputName);
         thanks4Playing = scoreResultDialog.findViewById(R.id.thanks4Playing);
         btnMainMenu = scoreResultDialog.findViewById(R.id.btnMainMenu);
+        scoreResultDialogLayout = scoreResultDialog.findViewById(R.id.scoreResultDialogLayout);
 
 
         btnMainMenu.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this,MenuActivity.class);
-            //intent.putExtra();
-            startActivity(intent);
-            finish();
+            if (playerInputName.getText().toString().isEmpty()) {
+                Snackbar.make(scoreResultDialogLayout,"Please input a name",Snackbar.LENGTH_INDEFINITE)
+                        .setAction("BACK", v1 -> {
+
+                        })
+                        .show();
+            }
+            else {
+                Intent intent = new Intent(MainActivity.this,MenuActivity.class);
+                //intent.putExtra();
+                startActivity(intent);
+                finish();
+            }
         });
 
     }
@@ -136,15 +153,14 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(() -> {
             // Do something after 0.1s = 100ms
 
-            totalScore++;
-            totalScoreResult.setText(String.valueOf(totalScore));
-
             if (totalScore == score) {
                 playerInputName.setVisibility(View.VISIBLE);
                 thanks4Playing.setVisibility(View.VISIBLE);
                 btnMainMenu.setVisibility(View.VISIBLE);
             }
             else {
+                totalScore++;
+                totalScoreResult.setText(String.valueOf(totalScore));
                 ScoreAnimation();
             }
 

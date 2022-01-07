@@ -32,6 +32,7 @@ public class MenuActivity extends AppCompatActivity {
         btnQuickPlay.setOnClickListener(v -> {
             Intent intent = new Intent(MenuActivity.this,MainActivity.class);
             startActivity(intent);
+            finish();
         });
 
 
@@ -53,6 +54,7 @@ public class MenuActivity extends AppCompatActivity {
             Intent intent = new Intent(MenuActivity.this,MainActivity.class);
             //intent.putExtra();
             startActivity(intent);
+            finish();
         });
 
         btnCustomBack.setOnClickListener(v -> menuCustomPlay.dismiss()); //close custom game menu
@@ -68,7 +70,7 @@ public class MenuActivity extends AppCompatActivity {
         scoreList = menuScore.findViewById(R.id.scoreBoard);
         scoreRecViewAdapter = new ScoreRecViewAdapter();
         ArrayList<Score> allScores = new ArrayList<>();
-        allScores.add(new Score("Test01",100,0));
+        allScores.add(new Score("Test01",100));
         scoreRecViewAdapter.setAllScores(allScores);
 
         scoreList.setAdapter(scoreRecViewAdapter);

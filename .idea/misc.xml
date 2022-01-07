@@ -11,6 +11,7 @@
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/WhackAMolu/app/src/main/res/mipmap-anydpi-v26/hexagon.xml" value="0.3828125" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/drawable/countdown.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/drawable/dialog_background.xml" value="0.3828125" />
+        <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/drawable/hexagon_background.xml" value="0.3828125" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/activity_main.xml" value="0.3283514492753623" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/activity_menu.xml" value="0.3283514492753623" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/countdown.xml" value="0.20520833333333333" />
@@ -19,6 +20,8 @@
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/list_scores.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/score_result_dialog.xml" value="0.3283514492753623" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/scoreboard_dialog.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/mipmap-anydpi-v26/hexagon.xml" value="0.3828125" />
+        <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/mipmap-anydpi-v26/hexagon_round.xml" value="0.3828125" />
       </map>
     </option>
   </component>

@@ -4,12 +4,10 @@ public class Score {
 
     String name;
     int score;
-    int playerid;
 
-    public Score(String name, int score, int playerid) {
+    public Score(String name, int score) {
         this.name = name;
         this.score = score;
-        this.playerid = playerid;
     }
 
     public String getName() {
@@ -28,12 +26,5 @@ public class Score {
         this.score = score;
     }
 
-    public int getPlayerid() {
-        return playerid;
-    }
-
-    public void setPlayerid(int playerid) {
-        this.playerid = playerid;
-    }
 
 }
