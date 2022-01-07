@@ -38,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     Random moleGen = new Random();
     Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btnMainMenu;
-    TextView scoreboard, timerSeconds, timerMinutes, countdownDialog, totalScoreResult, thanks4Playing;
-    EditText playerInputName;
+    TextView scoreboard, timerSeconds, timerMinutes, countdownDialog, totalScoreResult;
     Dialog countdown, scoreResultDialog;
 
     @Override
@@ -102,26 +101,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         totalScoreResult = scoreResultDialog.findViewById(R.id.totalScoreResult);
-        playerInputName = scoreResultDialog.findViewById(R.id.playerInputName);
-        thanks4Playing = scoreResultDialog.findViewById(R.id.thanks4Playing);
         btnMainMenu = scoreResultDialog.findViewById(R.id.btnMainMenu);
         scoreResultDialogLayout = scoreResultDialog.findViewById(R.id.scoreResultDialogLayout);
 
 
         btnMainMenu.setOnClickListener(v -> {
-            if (playerInputName.getText().toString().isEmpty()) {
-                Snackbar.make(scoreResultDialogLayout,"Please input a name",Snackbar.LENGTH_INDEFINITE)
-                        .setAction("BACK", v1 -> {
-
-                        })
-                        .show();
-            }
-            else {
-                Intent intent = new Intent(MainActivity.this,MenuActivity.class);
-                //intent.putExtra();
-                startActivity(intent);
-                finish();
-            }
+            Intent intent = new Intent(MainActivity.this,MenuActivity.class);
+            //intent.putExtra();
+            startActivity(intent);
+            finish();
         });
 
     }
@@ -154,8 +142,6 @@ public class MainActivity extends AppCompatActivity {
             // Do something after 0.1s = 100ms
 
             if (totalScore == score) {
-                playerInputName.setVisibility(View.VISIBLE);
-                thanks4Playing.setVisibility(View.VISIBLE);
                 btnMainMenu.setVisibility(View.VISIBLE);
             }
             else {

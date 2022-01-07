@@ -19,8 +19,6 @@ public class MenuActivity extends AppCompatActivity {
 
     private Button btnQuickPlay, btnCustomPlay, btnScore, btnCredits, btnQuit, btnCustomConfirmPlay, btnCustomBack, btnGit;
     private Dialog menuCustomPlay, menuScore, menuCredits;
-    private RecyclerView scoreList;
-    private ScoreRecViewAdapter scoreRecViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +65,7 @@ public class MenuActivity extends AppCompatActivity {
         menuScore.getWindow().setBackgroundDrawable(getDrawable(R.drawable.dialog_background));
         menuScore.setCancelable(false);
 
-        scoreList = menuScore.findViewById(R.id.scoreBoard);
-        scoreRecViewAdapter = new ScoreRecViewAdapter();
-        ArrayList<Score> allScores = new ArrayList<>();
-        allScores.add(new Score("Test01",100));
-        scoreRecViewAdapter.setAllScores(allScores);
 
-        scoreList.setAdapter(scoreRecViewAdapter);
-        scoreList.setLayoutManager(new LinearLayoutManager(this));
 
         btnScore = findViewById(R.id.menubtn3);
         btnCustomBack = menuScore.findViewById(R.id.btnBack);
