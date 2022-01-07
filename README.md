@@ -12,9 +12,9 @@ While watching Youtube tutorials for learning Android app development, I saw one
 * When timer at the top-right corner reaches 0, score will be immediately calculated.
 
 ## Thanks
-Here are the links the helped me and are still helping me along the way
+Here are the links that helped me and are still helping me along the way
 
-Youtube Links
+### Youtube Links
 
 Android Development for Beginners - Full Course @ freeCodeCamp.org Youtube channel
 * https://www.youtube.com/watch?v=fis26HvvDII
@@ -28,7 +28,8 @@ Android App Development in Java All-in-One Tutorial Series
 Create Custom Dialog in android || Android studio tutorial (2020)
 * https://www.youtube.com/watch?v=qtILjzf2oP4
 
-Stack Overflow Links
+### Stack Overflow Links
+
 * https://stackoverflow.com/questions/13178056/get-data-from-another-activity
 * https://stackoverflow.com/questions/26939759/android-getintent-from-a-fragment
 * https://stackoverflow.com/questions/6495898/findviewbyid-in-fragment
@@ -44,13 +45,14 @@ Stack Overflow Links
 * https://stackoverflow.com/questions/15874117/how-to-set-delay-in-android
 * https://stackoverflow.com/questions/10795078/dialog-with-transparent-background-in-android
 
-Miscellaneous Links
+### Miscellaneous Links
 
 * https://www.freesoundslibrary.com/bonk-sound-effect/
 * https://mixkit.co/free-sound-effects/
 * https://www.thedroidsonroids.com/blog/difference-between-listview-recyclerview
 
-Sites
+### Sites
+
 * https://developer.android.com/reference
 * https://www.freecodecamp.org/learn/
 * https://material.io/components
