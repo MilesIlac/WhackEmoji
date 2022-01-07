@@ -30,11 +30,12 @@ public class MainActivity extends AppCompatActivity {
     private int score = 0;
     private int totalScore = 0;
     private int isMole;
-    private int secondTimer;
-    private int minuteTimer;
+    private int secondTimer = 15;
+    private int minuteTimer = 0;
     private int countdownDialogTimer;
-
-    private RelativeLayout scoreResultDialogLayout;
+    private int getSecTimer;
+    private int getMinTimer;
+    private int highScoreCheck;
 
     Random moleGen = new Random();
     Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btnMainMenu;
@@ -49,10 +50,12 @@ public class MainActivity extends AppCompatActivity {
         scoreboard = findViewById(R.id.gameScore);
         timerSeconds = findViewById(R.id.timer2);
         timerMinutes = findViewById(R.id.timer1);
+        getSecTimer = getIntent().getIntExtra("secs",0);
+        getMinTimer = getIntent().getIntExtra("mins",0);
 
         //manual set of timer
-        secondTimer = 15;
-        minuteTimer = 0;
+        secondTimer = getSecTimer;
+        minuteTimer = getMinTimer;
 
         //for 1-9 secs, display is "00" to "09"
         if (secondTimer >= 10) {
@@ -102,14 +105,22 @@ public class MainActivity extends AppCompatActivity {
 
         totalScoreResult = scoreResultDialog.findViewById(R.id.totalScoreResult);
         btnMainMenu = scoreResultDialog.findViewById(R.id.btnMainMenu);
-        scoreResultDialogLayout = scoreResultDialog.findViewById(R.id.scoreResultDialogLayout);
 
 
         btnMainMenu.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this,MenuActivity.class);
-            //intent.putExtra();
-            startActivity(intent);
-            finish();
+            highScoreCheck = getIntent().getIntExtra("highScore",0);
+            if (highScoreCheck > totalScore) {
+                Intent intent = new Intent(MainActivity.this,MenuActivity.class);
+                intent.putExtra("score",highScoreCheck);
+                startActivity(intent);
+                finish();
+            }
+            else {
+                Intent intent = new Intent(MainActivity.this,MenuActivity.class);
+                intent.putExtra("score",totalScore);
+                startActivity(intent);
+                finish();
+            }
         });
 
     }
@@ -142,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
             // Do something after 0.1s = 100ms
 
             if (totalScore == score) {
-                btnMainMenu.setVisibility(View.VISIBLE);
+                btnMainMenu.setEnabled(true);
             }
             else {
                 totalScore++;

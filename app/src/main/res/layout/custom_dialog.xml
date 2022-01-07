@@ -38,23 +38,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/txtName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="Number of Buttons"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/white"/>
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:backgroundTint="@color/white"
-                android:hint="4-10"
-                android:textColorHint="#BDBDBD"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/txtEmail"
@@ -63,36 +46,41 @@
                 android:layout_marginTop="10dp"
                 android:text="Set Timer"
                 android:layout_gravity="center_horizontal"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
 
-            <RadioGroup
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:orientation="horizontal"
-                android:layout_gravity="center_horizontal">
+                android:layout_height="wrap_content"
+                android:backgroundTint="#311B92"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:id="@+id/secs15"
+                android:text="15 seconds"/>
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/white"
-                    android:text="10"
-                    android:textColor="@color/white"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#311B92"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/secs30"
+                android:text="30 seconds"/>
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/white"
-                    android:text="30"
-                    android:textColor="@color/white"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#311B92"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/secs60"
+                android:text="1 minute"/>
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/white"
-                    android:text="60"
-                    android:textColor="@color/white"/>
-
-            </RadioGroup>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#311B92"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/secsNull"
+                android:text="UNTIMED"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -100,15 +88,6 @@
                 android:backgroundTint="#311B92"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:id="@+id/btnPlay"
-                android:text="PLAY"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#311B92"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
                 android:id="@+id/btnBack"
                 android:text="BACK"
                 />
