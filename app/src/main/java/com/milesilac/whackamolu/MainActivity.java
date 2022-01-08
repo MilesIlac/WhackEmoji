@@ -4,24 +4,18 @@ package com.milesilac.whackamolu;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 
 import android.os.Bundle;
 
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.os.Handler;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Random;
 
@@ -29,23 +23,24 @@ public class MainActivity extends AppCompatActivity {
 
     private int score = 0;
     private int totalScore = 0;
-    private int isMole;
-    private int secondTimer = 15;
-    private int minuteTimer = 0;
+    private int secondTimer;
+    private int minuteTimer;
     private int countdownDialogTimer;
     private int getSecTimer;
     private int getMinTimer;
     private int highScoreCheck;
 
     Random moleGen = new Random();
-    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btnMainMenu;
+    Button btnMainMenu;
     TextView scoreboard, timerSeconds, timerMinutes, countdownDialog, totalScoreResult;
     Dialog countdown, scoreResultDialog;
+    Button[] buttons = new Button[10];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         scoreboard = findViewById(R.id.gameScore);
         timerSeconds = findViewById(R.id.timer2);
@@ -73,16 +68,17 @@ public class MainActivity extends AppCompatActivity {
             timerMinutes.setText("0" + minuteTimer);
         }
 
-        btn1 = findViewById(R.id.hit1);
-        btn2 = findViewById(R.id.hit2);
-        btn3 = findViewById(R.id.hit3);
-        btn4 = findViewById(R.id.hit4);
-        btn5 = findViewById(R.id.hit5);
-        btn6 = findViewById(R.id.hit6);
-        btn7 = findViewById(R.id.hit7);
-        btn8 = findViewById(R.id.hit8);
-        btn9 = findViewById(R.id.hit9);
-        btn10 = findViewById(R.id.hit10);
+
+        buttons[0] = findViewById(R.id.hit1);
+        buttons[1] = findViewById(R.id.hit2);
+        buttons[2] = findViewById(R.id.hit3);
+        buttons[3] = findViewById(R.id.hit4);
+        buttons[4] = findViewById(R.id.hit5);
+        buttons[5] = findViewById(R.id.hit6);
+        buttons[6] = findViewById(R.id.hit7);
+        buttons[7] = findViewById(R.id.hit8);
+        buttons[8] = findViewById(R.id.hit9);
+        buttons[9] = findViewById(R.id.hit10);
 
         countdown = new Dialog(this);
         countdown.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -170,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     //code for the countdown timer located at the upper right hand corner of the game
     public void TimerDigital() {
         final Handler handler = new Handler();
@@ -215,280 +210,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //helps revert to default color state
-    public void InitialState() {
-        final Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            // Do something after 0.5s = 500ms
-            btn1.setBackgroundColor(0xFF311B92);
-            btn2.setBackgroundColor(0xFF311B92);
-            btn3.setBackgroundColor(0xFF311B92);
-            btn4.setBackgroundColor(0xFF311B92);
-            btn5.setBackgroundColor(0xFF311B92);
-            btn6.setBackgroundColor(0xFF311B92);
-            btn7.setBackgroundColor(0xFF311B92);
-            btn8.setBackgroundColor(0xFF311B92);
-            btn9.setBackgroundColor(0xFF311B92);
-            btn10.setBackgroundColor(0xFF311B92);
-
-        }, 500);
-    }
-
-
     //hit method for each button
-    public void hit1(View v) {
-        MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
-        MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
-        if (isMole == 1) {
-            btn1.setBackgroundColor(0xFFFF6F00);
-            btn1.setText("(>‿<)");
-            AddScore();
-            playBonk.start();
-        }
-        else {
-            btn1.setBackgroundColor(0xFFB71C1C);
-            btn1.setText("(#_#)");
-            MinusScore();
-            playError.start();
-        }
-        InitialState();
-    }
-
-    public void hit2(View v) {
-        MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
-        MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
-        if (isMole == 2) {
-            btn2.setBackgroundColor(0xFFFF6F00);
-            btn2.setText("(>‿<)");
-            AddScore();
-            playBonk.start();
-        }
-        else {
-            btn2.setBackgroundColor(0xFFB71C1C);
-            btn2.setText("(#_#)");
-            MinusScore();
-            playError.start();
-        }
-        InitialState();
-    }
-
-    public void hit3(View v) {
-        MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
-        MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
-        if (isMole == 3) {
-            btn3.setBackgroundColor(0xFFFF6F00);
-            btn3.setText("(>‿<)");
-            AddScore();
-            playBonk.start();
-
-        }
-        else {
-            btn3.setBackgroundColor(0xFFB71C1C);
-            btn3.setText("(#_#)");
-            MinusScore();
-            playError.start();
-        }
-        InitialState();
-    }
-
-    public void hit4(View v) {
-        MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
-        MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
-        if (isMole == 4) {
-            btn4.setBackgroundColor(0xFFFF6F00);
-            btn4.setText("(>‿<)");
-            AddScore();
-            playBonk.start();
-        }
-        else {
-            btn4.setBackgroundColor(0xFFB71C1C);
-            btn4.setText("(#_#)");
-            MinusScore();
-            playError.start();
-        }
-        InitialState();
-    }
-
-    public void hit5(View v) {
-        MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
-        MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
-        if (isMole == 5) {
-            btn5.setBackgroundColor(0xFFFF6F00);
-            btn5.setText("(>‿<)");
-            AddScore();
-            playBonk.start();
-        }
-        else {
-            btn5.setBackgroundColor(0xFFB71C1C);
-            btn5.setText("(#_#)");
-            MinusScore();
-            playError.start();
-        }
-        InitialState();
-    }
-
-    public void hit6(View v) {
-        MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
-        MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
-        if (isMole == 6) {
-            btn6.setBackgroundColor(0xFFFF6F00);
-            btn6.setText("(>‿<)");
-            AddScore();
-            playBonk.start();
-        }
-        else {
-            btn6.setBackgroundColor(0xFFB71C1C);
-            btn6.setText("(#_#)");
-            MinusScore();
-            playError.start();
-        }
-        InitialState();
-    }
-
-    public void hit7(View v) {
-        MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
-        MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
-        if (isMole == 7) {
-            btn7.setBackgroundColor(0xFFFF6F00);
-            btn7.setText("(>‿<)");
-            AddScore();
-            playBonk.start();
-        }
-        else {
-            btn7.setBackgroundColor(0xFFB71C1C);
-            btn7.setText("(#_#)");
-            MinusScore();
-            playError.start();
-        }
-        InitialState();
-    }
-
-    public void hit8(View v) {
-        MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
-        MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
-        if (isMole == 8) {
-            btn8.setBackgroundColor(0xFFFF6F00);
-            btn8.setText("(>‿<)");
-            AddScore();
-            playBonk.start();
-        }
-        else {
-            btn8.setBackgroundColor(0xFFB71C1C);
-            btn8.setText("(#_#)");
-            MinusScore();
-            playError.start();
-        }
-        InitialState();
-    }
-
-    public void hit9(View v) {
-        MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
-        MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
-        if (isMole == 9) {
-            btn9.setBackgroundColor(0xFFFF6F00);
-            btn9.setText("(>‿<)");
-            AddScore();
-            playBonk.start();
-        }
-        else {
-            btn9.setBackgroundColor(0xFFB71C1C);
-            btn9.setText("(#_#)");
-            MinusScore();
-            playError.start();
-        }
-        InitialState();
-    }
-
-    public void hit10(View v) {
-        MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
-        MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
-        if (isMole == 10) {
-            btn10.setBackgroundColor(0xFFFF6F00);
-            btn10.setText("(>‿<)");
-            AddScore();
-            playBonk.start();
-        }
-        else {
-            btn10.setBackgroundColor(0xFFB71C1C);
-            btn10.setText("(#_#)");
-            MinusScore();
-            playError.start();
-        }
-        InitialState();
-    }
-
-
     private void setTheMole() {
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
             // Do something every 1.5s = 1500ms
-            int nextMole = moleGen.nextInt(10) + 1;
-            switch (nextMole) {
-                case 1:
-                    isMole = 1;
-                    //btn1.setTextColor(0xFF76FF03);
-                    btn1.setTextColor(0xFFFFD54F);
-                    btn1.setText("(✦‿✦)");
-                    break;
-                case 2:
-                    isMole = 2;
-                    //btn2.setTextColor(0xFF76FF03);
-                    btn2.setTextColor(0xFFFFD54F);
-                    btn2.setText("(✦‿✦)");
-                    break;
-                case 3:
-                    isMole = 3;
-                    //btn3.setTextColor(0xFF76FF03);
-                    btn3.setTextColor(0xFFFFD54F);
-                    btn3.setText("(✦‿✦)");
-                    break;
-                case 4:
-                    isMole = 4;
-                    //btn4.setTextColor(0xFF76FF03);
-                    btn4.setTextColor(0xFFFFD54F);
-                    btn4.setText("(✦‿✦)");
-                    break;
-                case 5:
-                    isMole = 5;
-                    //btn5.setTextColor(0xFF76FF03);
-                    btn5.setTextColor(0xFFFFD54F);
-                    btn5.setText("(✦‿✦)");
-                    break;
-                case 6:
-                    isMole = 6;
-                    //btn6.setTextColor(0xFF76FF03);
-                    btn6.setTextColor(0xFFFFD54F);
-                    btn6.setText("(✦‿✦)");
-                    break;
-                case 7:
-                    isMole = 7;
-                    //btn7.setTextColor(0xFF76FF03);
-                    btn7.setTextColor(0xFFFFD54F);
-                    btn7.setText("(✦‿✦)");
-                    break;
-                case 8:
-                    isMole = 8;
-                    //btn8.setTextColor(0xFF76FF03);
-                    btn8.setTextColor(0xFFFFD54F);
-                    btn8.setText("(✦‿✦)");
-                    break;
-                case 9:
-                    isMole = 9;
-                    //btn9.setTextColor(0xFF76FF03);
-                    btn9.setTextColor(0xFFFFD54F);
-                    btn9.setText("(✦‿✦)");
-                    break;
-                case 10:
-                    isMole = 10;
-                    //btn10.setTextColor(0xFF76FF03);
-                    btn10.setTextColor(0xFFFFD54F);
-                    btn10.setText("(✦‿✦)");
-                    break;
+            int nextMole = moleGen.nextInt(9) + 1;
+
+            //btn1.setTextColor(0xFF76FF03);
+            buttons[nextMole].setTextColor(0xFFFFD54F);
+            buttons[nextMole].setText("(✦‿✦)");
+
+            for (int i=0;i<10;i++) {
+                if (i == nextMole) {
+                    buttons[i].setOnClickListener(v ->  {
+                        MediaPlayer playBonk = MediaPlayer.create(MainActivity.this,R.raw.bonk);
+                        buttons[nextMole].setBackgroundColor(0xFFFF6F00);
+                        buttons[nextMole].setText("(>‿<)");
+                        AddScore();
+                        playBonk.start();
+                    });
+                }
+                else {
+                    int notMole = i;
+                    System.out.println(notMole);
+                    buttons[i].setOnClickListener(v -> {
+                        MediaPlayer playError = MediaPlayer.create(MainActivity.this,R.raw.errorbonk);
+                        buttons[notMole].setBackgroundColor(0xFFB71C1C);
+                        buttons[notMole].setText("(#_#)");
+                        MinusScore();
+                        playError.start();
+                    });
+                }
             }
 
             setTheMole();
             NoMoleState();
-        }, 1500);
+        }, 1300);
     }
 
 
@@ -497,28 +255,14 @@ public class MainActivity extends AppCompatActivity {
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
             // Do something after 1.45s = 1450ms
-            btn1.setTextColor(Color.WHITE);
-            btn1.setText("(O‿O)");
-            btn2.setTextColor(Color.WHITE);
-            btn2.setText("(O‿O)");
-            btn3.setTextColor(Color.WHITE);
-            btn3.setText("(O‿O)");
-            btn4.setTextColor(Color.WHITE);
-            btn4.setText("(O‿O)");
-            btn5.setTextColor(Color.WHITE);
-            btn5.setText("(O‿O)");
-            btn6.setTextColor(Color.WHITE);
-            btn6.setText("(O‿O)");
-            btn7.setTextColor(Color.WHITE);
-            btn7.setText("(O‿O)");
-            btn8.setTextColor(Color.WHITE);
-            btn8.setText("(O‿O)");
-            btn9.setTextColor(Color.WHITE);
-            btn9.setText("(O‿O)");
-            btn10.setTextColor(Color.WHITE);
-            btn10.setText("(O‿O)");
 
-        }, 1450);
+            for (int i=0;i<10;i++) {
+                buttons[i].setBackgroundColor(0xFF311B92);
+                buttons[i].setTextColor(Color.WHITE);
+                buttons[i].setText("(O‿O)");
+            }
+
+        }, 1250);
     }
 
 
