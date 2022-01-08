@@ -28,66 +28,64 @@
                 android:layout_gravity="center_horizontal"/>
 
             <TextView
-                android:id="@+id/customGameDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="CUSTOM GAME SETUP"
+                android:text="CREDITS"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/creditsAndThanks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Thanks to the following:"
+                android:layout_gravity="center_horizontal"
+                android:textSize="17sp"
+                android:textColor="@color/white"/>
 
             <TextView
-                android:id="@+id/txtEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Set Timer"
+                android:text="> freeCodeCamp.org YT channel"
                 android:layout_gravity="center_horizontal"
-                android:textColor="@color/white"
-                android:textSize="20sp"/>
+                android:textColor="@color/white"/>
 
-            <Button
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="> freesoundslibrary.com and mixkit.co for the sound effects"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/white"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#311B92"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:id="@+id/secs15"
-                android:text="15 seconds"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#311B92"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/secs30"
-                android:text="30 seconds"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#311B92"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/secs60"
-                android:text="1 minute"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#311B92"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/secsNull"
-                android:text="UNTIMED"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#311B92"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
+                android:text="Full credits can be viewed in Github."
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#311B92"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:id="@+id/btnGit"
+                android:text="GITHUB"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#311B92"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:id="@+id/btnBack"
                 android:text="BACK"
                 />

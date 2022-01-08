@@ -3,28 +3,44 @@ package com.milesilac.whackamolu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 
 import android.os.Bundle;
 
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.os.Handler;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    int score;
-    int isMole;
-    int secondTimer;
-    int minuteTimer;
+    private int score = 0;
+    private int totalScore = 0;
+    private int isMole;
+    private int secondTimer = 15;
+    private int minuteTimer = 0;
+    private int countdownDialogTimer;
+    private int getSecTimer;
+    private int getMinTimer;
+    private int highScoreCheck;
 
     Random moleGen = new Random();
-    Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button10;
-    TextView scoreboard, timerSeconds, timerMinutes;
+    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btnMainMenu;
+    TextView scoreboard, timerSeconds, timerMinutes, countdownDialog, totalScoreResult;
+    Dialog countdown, scoreResultDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,30 +50,125 @@ public class MainActivity extends AppCompatActivity {
         scoreboard = findViewById(R.id.gameScore);
         timerSeconds = findViewById(R.id.timer2);
         timerMinutes = findViewById(R.id.timer1);
+        getSecTimer = getIntent().getIntExtra("secs",15);
+        getMinTimer = getIntent().getIntExtra("mins",0);
 
         //manual set of timer
-        secondTimer = 0;
-        minuteTimer = 2;
+        secondTimer = getSecTimer;
+        minuteTimer = getMinTimer;
 
-        timerSeconds.setText("0" + secondTimer);
-        timerMinutes.setText("0" + minuteTimer);
+        //for 1-9 secs, display is "00" to "09"
+        if (secondTimer >= 10) {
+            timerSeconds.setText(String.valueOf(secondTimer));
+        }
+        else {
+            timerSeconds.setText("0" + secondTimer);
+        }
 
-        button1 = findViewById(R.id.hit1);
-        button2 = findViewById(R.id.hit2);
-        button3 = findViewById(R.id.hit3);
-        button4 = findViewById(R.id.hit4);
-        button5 = findViewById(R.id.hit5);
-        button6 = findViewById(R.id.hit6);
-        button7 = findViewById(R.id.hit7);
-        button8 = findViewById(R.id.hit8);
-        button9 = findViewById(R.id.hit9);
-        button10 = findViewById(R.id.hit10);
+        //for 1-9 mins, display is "00" to "09"
+        if (minuteTimer >= 10) {
+            timerMinutes.setText(String.valueOf(minuteTimer));
+        }
+        else {
+            timerMinutes.setText("0" + minuteTimer);
+        }
 
-        //initialize timer and the mole
-        TimerDigital();
-        setTheMole();
+        btn1 = findViewById(R.id.hit1);
+        btn2 = findViewById(R.id.hit2);
+        btn3 = findViewById(R.id.hit3);
+        btn4 = findViewById(R.id.hit4);
+        btn5 = findViewById(R.id.hit5);
+        btn6 = findViewById(R.id.hit6);
+        btn7 = findViewById(R.id.hit7);
+        btn8 = findViewById(R.id.hit8);
+        btn9 = findViewById(R.id.hit9);
+        btn10 = findViewById(R.id.hit10);
+
+        countdown = new Dialog(this);
+        countdown.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        countdown.setContentView(R.layout.countdown);
+        countdown.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        countdown.setCancelable(true); //closes dialog
+        countdown.show();
+        countdown.setOnCancelListener(dialog -> {
+            TimerDigital();
+            setTheMole();
+        }); // starts game on dialog close
+
+        scoreResultDialog = new Dialog(this);
+        scoreResultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        scoreResultDialog.setContentView(R.layout.score_result_dialog);
+        scoreResultDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        scoreResultDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        scoreResultDialog.setCancelable(false); //closes dialog
+
+
+        totalScoreResult = scoreResultDialog.findViewById(R.id.totalScoreResult);
+        btnMainMenu = scoreResultDialog.findViewById(R.id.btnMainMenu);
+
+
+        btnMainMenu.setOnClickListener(v -> {
+            highScoreCheck = getIntent().getIntExtra("highScore",0);
+            if (highScoreCheck > totalScore) {
+                Intent intent = new Intent(MainActivity.this,MenuActivity.class);
+                intent.putExtra("score",highScoreCheck);
+                startActivity(intent);
+                finish();
+            }
+            else {
+                Intent intent = new Intent(MainActivity.this,MenuActivity.class);
+                intent.putExtra("score",totalScore);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
+
+//    public void StartCountdown(View v) {
+//        countdownDialogTimer = 3;
+//        countdownDialog.setText(String.valueOf(countdownDialogTimer));
+//
+//        final Handler handler = new Handler();
+//        handler.postDelayed(() -> {
+//            // Do something after 1s = 1000ms
+//
+//            //for 1-9 secs, display is "00" to "09"
+//            if (countdownDialogTimer != -1) {
+//                countdownDialogTimer--;
+//                countdownDialog.setText(String.valueOf(countdownDialogTimer));
+//            }
+//            else {
+//                StartCountdown(v);
+//            }
+//
+//        }, 1000);
+//
+//        countdown.dismiss();
+//    }
+
+    public void ScoreAnimation() {
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            // Do something after 0.1s = 100ms
+
+            if (totalScore == score) {
+                btnMainMenu.setEnabled(true);
+            }
+            else {
+                if (score >= 0) {
+                    totalScore++;
+                }
+                else {
+                    totalScore--;
+                }
+                totalScoreResult.setText(String.valueOf(totalScore));
+                ScoreAnimation();
+            }
+
+        }, 100);
+    }
+
 
 
     //code for the countdown timer located at the upper right hand corner of the game
@@ -82,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 timerSeconds.setText("0" + secondTimer);
             }
 
+            //for 1-9 mins, display is "00" to "09"
             if (minuteTimer >= 10) {
                 timerMinutes.setText(String.valueOf(minuteTimer));
             }
@@ -89,7 +201,10 @@ public class MainActivity extends AppCompatActivity {
                 timerMinutes.setText("0" + minuteTimer);
             }
 
+            //if seconds and minutes timers are both 0, timer will stop
             if (secondTimer == 0 && minuteTimer == 0) {
+                scoreResultDialog.show();
+                ScoreAnimation();
             }
             else {
                 TimerDigital();
@@ -105,16 +220,16 @@ public class MainActivity extends AppCompatActivity {
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
             // Do something after 0.5s = 500ms
-            button1.setBackgroundColor(0xFF311B92);
-            button2.setBackgroundColor(0xFF311B92);
-            button3.setBackgroundColor(0xFF311B92);
-            button4.setBackgroundColor(0xFF311B92);
-            button5.setBackgroundColor(0xFF311B92);
-            button6.setBackgroundColor(0xFF311B92);
-            button7.setBackgroundColor(0xFF311B92);
-            button8.setBackgroundColor(0xFF311B92);
-            button9.setBackgroundColor(0xFF311B92);
-            button10.setBackgroundColor(0xFF311B92);
+            btn1.setBackgroundColor(0xFF311B92);
+            btn2.setBackgroundColor(0xFF311B92);
+            btn3.setBackgroundColor(0xFF311B92);
+            btn4.setBackgroundColor(0xFF311B92);
+            btn5.setBackgroundColor(0xFF311B92);
+            btn6.setBackgroundColor(0xFF311B92);
+            btn7.setBackgroundColor(0xFF311B92);
+            btn8.setBackgroundColor(0xFF311B92);
+            btn9.setBackgroundColor(0xFF311B92);
+            btn10.setBackgroundColor(0xFF311B92);
 
         }, 500);
     }
@@ -125,14 +240,14 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
         MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
         if (isMole == 1) {
-            button1.setBackgroundColor(0xFFFF6F00);
-            button1.setText("(>‿<)");
+            btn1.setBackgroundColor(0xFFFF6F00);
+            btn1.setText("(>‿<)");
             AddScore();
             playBonk.start();
         }
         else {
-            button1.setBackgroundColor(0xFFB71C1C);
-            button1.setText("(#_#)");
+            btn1.setBackgroundColor(0xFFB71C1C);
+            btn1.setText("(#_#)");
             MinusScore();
             playError.start();
         }
@@ -143,14 +258,14 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
         MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
         if (isMole == 2) {
-            button2.setBackgroundColor(0xFFFF6F00);
-            button2.setText("(>‿<)");
+            btn2.setBackgroundColor(0xFFFF6F00);
+            btn2.setText("(>‿<)");
             AddScore();
             playBonk.start();
         }
         else {
-            button2.setBackgroundColor(0xFFB71C1C);
-            button2.setText("(#_#)");
+            btn2.setBackgroundColor(0xFFB71C1C);
+            btn2.setText("(#_#)");
             MinusScore();
             playError.start();
         }
@@ -161,15 +276,15 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
         MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
         if (isMole == 3) {
-            button3.setBackgroundColor(0xFFFF6F00);
-            button3.setText("(>‿<)");
+            btn3.setBackgroundColor(0xFFFF6F00);
+            btn3.setText("(>‿<)");
             AddScore();
             playBonk.start();
 
         }
         else {
-            button3.setBackgroundColor(0xFFB71C1C);
-            button3.setText("(#_#)");
+            btn3.setBackgroundColor(0xFFB71C1C);
+            btn3.setText("(#_#)");
             MinusScore();
             playError.start();
         }
@@ -180,14 +295,14 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
         MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
         if (isMole == 4) {
-            button4.setBackgroundColor(0xFFFF6F00);
-            button4.setText("(>‿<)");
+            btn4.setBackgroundColor(0xFFFF6F00);
+            btn4.setText("(>‿<)");
             AddScore();
             playBonk.start();
         }
         else {
-            button4.setBackgroundColor(0xFFB71C1C);
-            button4.setText("(#_#)");
+            btn4.setBackgroundColor(0xFFB71C1C);
+            btn4.setText("(#_#)");
             MinusScore();
             playError.start();
         }
@@ -198,14 +313,14 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
         MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
         if (isMole == 5) {
-            button5.setBackgroundColor(0xFFFF6F00);
-            button5.setText("(>‿<)");
+            btn5.setBackgroundColor(0xFFFF6F00);
+            btn5.setText("(>‿<)");
             AddScore();
             playBonk.start();
         }
         else {
-            button5.setBackgroundColor(0xFFB71C1C);
-            button5.setText("(#_#)");
+            btn5.setBackgroundColor(0xFFB71C1C);
+            btn5.setText("(#_#)");
             MinusScore();
             playError.start();
         }
@@ -216,14 +331,14 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
         MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
         if (isMole == 6) {
-            button6.setBackgroundColor(0xFFFF6F00);
-            button6.setText("(>‿<)");
+            btn6.setBackgroundColor(0xFFFF6F00);
+            btn6.setText("(>‿<)");
             AddScore();
             playBonk.start();
         }
         else {
-            button6.setBackgroundColor(0xFFB71C1C);
-            button6.setText("(#_#)");
+            btn6.setBackgroundColor(0xFFB71C1C);
+            btn6.setText("(#_#)");
             MinusScore();
             playError.start();
         }
@@ -234,14 +349,14 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
         MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
         if (isMole == 7) {
-            button7.setBackgroundColor(0xFFFF6F00);
-            button7.setText("(>‿<)");
+            btn7.setBackgroundColor(0xFFFF6F00);
+            btn7.setText("(>‿<)");
             AddScore();
             playBonk.start();
         }
         else {
-            button7.setBackgroundColor(0xFFB71C1C);
-            button7.setText("(#_#)");
+            btn7.setBackgroundColor(0xFFB71C1C);
+            btn7.setText("(#_#)");
             MinusScore();
             playError.start();
         }
@@ -252,14 +367,14 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
         MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
         if (isMole == 8) {
-            button8.setBackgroundColor(0xFFFF6F00);
-            button8.setText("(>‿<)");
+            btn8.setBackgroundColor(0xFFFF6F00);
+            btn8.setText("(>‿<)");
             AddScore();
             playBonk.start();
         }
         else {
-            button8.setBackgroundColor(0xFFB71C1C);
-            button8.setText("(#_#)");
+            btn8.setBackgroundColor(0xFFB71C1C);
+            btn8.setText("(#_#)");
             MinusScore();
             playError.start();
         }
@@ -270,14 +385,14 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
         MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
         if (isMole == 9) {
-            button9.setBackgroundColor(0xFFFF6F00);
-            button9.setText("(>‿<)");
+            btn9.setBackgroundColor(0xFFFF6F00);
+            btn9.setText("(>‿<)");
             AddScore();
             playBonk.start();
         }
         else {
-            button9.setBackgroundColor(0xFFB71C1C);
-            button9.setText("(#_#)");
+            btn9.setBackgroundColor(0xFFB71C1C);
+            btn9.setText("(#_#)");
             MinusScore();
             playError.start();
         }
@@ -288,14 +403,14 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer playBonk = MediaPlayer.create(this,R.raw.bonk);
         MediaPlayer playError = MediaPlayer.create(this,R.raw.errorbonk);
         if (isMole == 10) {
-            button10.setBackgroundColor(0xFFFF6F00);
-            button10.setText("(>‿<)");
+            btn10.setBackgroundColor(0xFFFF6F00);
+            btn10.setText("(>‿<)");
             AddScore();
             playBonk.start();
         }
         else {
-            button10.setBackgroundColor(0xFFB71C1C);
-            button10.setText("(#_#)");
+            btn10.setBackgroundColor(0xFFB71C1C);
+            btn10.setText("(#_#)");
             MinusScore();
             playError.start();
         }
@@ -311,53 +426,63 @@ public class MainActivity extends AppCompatActivity {
             switch (nextMole) {
                 case 1:
                     isMole = 1;
-                    //button1.setTextColor(0xFF76FF03);
-                    button1.setTextColor(0xFFFFD54F);
+                    //btn1.setTextColor(0xFF76FF03);
+                    btn1.setTextColor(0xFFFFD54F);
+                    btn1.setText("(✦‿✦)");
                     break;
                 case 2:
                     isMole = 2;
-                    //button2.setTextColor(0xFF76FF03);
-                    button2.setTextColor(0xFFFFD54F);
+                    //btn2.setTextColor(0xFF76FF03);
+                    btn2.setTextColor(0xFFFFD54F);
+                    btn2.setText("(✦‿✦)");
                     break;
                 case 3:
                     isMole = 3;
-                    //button3.setTextColor(0xFF76FF03);
-                    button3.setTextColor(0xFFFFD54F);
+                    //btn3.setTextColor(0xFF76FF03);
+                    btn3.setTextColor(0xFFFFD54F);
+                    btn3.setText("(✦‿✦)");
                     break;
                 case 4:
                     isMole = 4;
-                    //button4.setTextColor(0xFF76FF03);
-                    button4.setTextColor(0xFFFFD54F);
+                    //btn4.setTextColor(0xFF76FF03);
+                    btn4.setTextColor(0xFFFFD54F);
+                    btn4.setText("(✦‿✦)");
                     break;
                 case 5:
                     isMole = 5;
-                    //button5.setTextColor(0xFF76FF03);
-                    button5.setTextColor(0xFFFFD54F);
+                    //btn5.setTextColor(0xFF76FF03);
+                    btn5.setTextColor(0xFFFFD54F);
+                    btn5.setText("(✦‿✦)");
                     break;
                 case 6:
                     isMole = 6;
-                    //button6.setTextColor(0xFF76FF03);
-                    button6.setTextColor(0xFFFFD54F);
+                    //btn6.setTextColor(0xFF76FF03);
+                    btn6.setTextColor(0xFFFFD54F);
+                    btn6.setText("(✦‿✦)");
                     break;
                 case 7:
                     isMole = 7;
-                    //button7.setTextColor(0xFF76FF03);
-                    button7.setTextColor(0xFFFFD54F);
+                    //btn7.setTextColor(0xFF76FF03);
+                    btn7.setTextColor(0xFFFFD54F);
+                    btn7.setText("(✦‿✦)");
                     break;
                 case 8:
                     isMole = 8;
-                    //button8.setTextColor(0xFF76FF03);
-                    button8.setTextColor(0xFFFFD54F);
+                    //btn8.setTextColor(0xFF76FF03);
+                    btn8.setTextColor(0xFFFFD54F);
+                    btn8.setText("(✦‿✦)");
                     break;
                 case 9:
                     isMole = 9;
-                    //button9.setTextColor(0xFF76FF03);
-                    button9.setTextColor(0xFFFFD54F);
+                    //btn9.setTextColor(0xFF76FF03);
+                    btn9.setTextColor(0xFFFFD54F);
+                    btn9.setText("(✦‿✦)");
                     break;
                 case 10:
                     isMole = 10;
-                    //button10.setTextColor(0xFF76FF03);
-                    button10.setTextColor(0xFFFFD54F);
+                    //btn10.setTextColor(0xFF76FF03);
+                    btn10.setTextColor(0xFFFFD54F);
+                    btn10.setText("(✦‿✦)");
                     break;
             }
 
@@ -372,26 +497,26 @@ public class MainActivity extends AppCompatActivity {
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
             // Do something after 1.45s = 1450ms
-            button1.setTextColor(Color.WHITE);
-            button1.setText("(✦‿✦)");
-            button2.setTextColor(Color.WHITE);
-            button2.setText("(✦‿✦)");
-            button3.setTextColor(Color.WHITE);
-            button3.setText("(✦‿✦)");
-            button4.setTextColor(Color.WHITE);
-            button4.setText("(✦‿✦)");
-            button5.setTextColor(Color.WHITE);
-            button5.setText("(✦‿✦)");
-            button6.setTextColor(Color.WHITE);
-            button6.setText("(✦‿✦)");
-            button7.setTextColor(Color.WHITE);
-            button7.setText("(✦‿✦)");
-            button8.setTextColor(Color.WHITE);
-            button8.setText("(✦‿✦)");
-            button9.setTextColor(Color.WHITE);
-            button9.setText("(✦‿✦)");
-            button10.setTextColor(Color.WHITE);
-            button10.setText("(✦‿✦)");
+            btn1.setTextColor(Color.WHITE);
+            btn1.setText("(O‿O)");
+            btn2.setTextColor(Color.WHITE);
+            btn2.setText("(O‿O)");
+            btn3.setTextColor(Color.WHITE);
+            btn3.setText("(O‿O)");
+            btn4.setTextColor(Color.WHITE);
+            btn4.setText("(O‿O)");
+            btn5.setTextColor(Color.WHITE);
+            btn5.setText("(O‿O)");
+            btn6.setTextColor(Color.WHITE);
+            btn6.setText("(O‿O)");
+            btn7.setTextColor(Color.WHITE);
+            btn7.setText("(O‿O)");
+            btn8.setTextColor(Color.WHITE);
+            btn8.setText("(O‿O)");
+            btn9.setTextColor(Color.WHITE);
+            btn9.setText("(O‿O)");
+            btn10.setTextColor(Color.WHITE);
+            btn10.setText("(O‿O)");
 
         }, 1450);
     }
@@ -407,4 +532,14 @@ public class MainActivity extends AppCompatActivity {
         scoreboard.setText(String.valueOf(score));
     }
 
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        if (countdownDialogTimer == -1) {
+//            //initialize timer and the mole
+//
+//        }
+//
+//    }
 }
