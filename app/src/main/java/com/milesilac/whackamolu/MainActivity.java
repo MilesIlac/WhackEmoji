@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         scoreboard = findViewById(R.id.gameScore);
         timerSeconds = findViewById(R.id.timer2);
         timerMinutes = findViewById(R.id.timer1);
-        getSecTimer = getIntent().getIntExtra("secs",0);
+        getSecTimer = getIntent().getIntExtra("secs",15);
         getMinTimer = getIntent().getIntExtra("mins",0);
 
         //manual set of timer
@@ -156,7 +156,12 @@ public class MainActivity extends AppCompatActivity {
                 btnMainMenu.setEnabled(true);
             }
             else {
-                totalScore++;
+                if (score >= 0) {
+                    totalScore++;
+                }
+                else {
+                    totalScore--;
+                }
                 totalScoreResult.setText(String.valueOf(totalScore));
                 ScoreAnimation();
             }
