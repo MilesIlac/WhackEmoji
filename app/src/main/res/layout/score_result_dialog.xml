@@ -33,11 +33,6 @@
                     android:background="#512DA8"
                     android:padding="10dp">
 
-                    <ImageView
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:background="@mipmap/ic_launcher_round"
-                        android:layout_gravity="center_horizontal"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -53,7 +48,7 @@
                         android:id="@+id/totalScoreResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="20dp"
                         android:text="0"
                         android:layout_gravity="center_horizontal"
                         android:textColor="@color/white"

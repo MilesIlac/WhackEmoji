@@ -20,8 +20,8 @@ public class MenuActivity extends AppCompatActivity {
 
     private Button btnQuickPlay, btnCustomPlay, btn15sPlay, btn30sPlay, btn60sPlay, btnUntimedPlay, btnScore, btnCredits, btnQuit, btnCustomBack, btnGit;
     private Dialog menuCustomPlay, menuScore, menuCredits;
-    private TextView highestScore;
-    private int highestScoreValue = 5;
+    private TextView highestScoreTimed, highestScoreUntimed;
+    private int highestScoreTimedValue, highestScoreUntimedValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +32,11 @@ public class MenuActivity extends AppCompatActivity {
 
         btnQuickPlay.setOnClickListener(v -> {
             Intent intent = new Intent(MenuActivity.this,MainActivity.class);
+            intent.putExtra("highScoreTimed",highestScoreTimedValue);
+            intent.putExtra("highScoreUntimed",highestScoreUntimedValue);
             startActivity(intent);
             finish();
         });
-
 
         menuCustomPlay = new Dialog(this);
         menuCustomPlay.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -56,7 +57,8 @@ public class MenuActivity extends AppCompatActivity {
             Intent intent = new Intent(MenuActivity.this,MainActivity.class);
             intent.putExtra("secs",15);
             intent.putExtra("mins",0);
-            intent.putExtra("highScore",highestScoreValue);
+            intent.putExtra("highScoreTimed",highestScoreTimedValue);
+            intent.putExtra("highScoreUntimed",highestScoreUntimedValue);
             startActivity(intent);
             finish();
         }); //choose 15 seconds of play
@@ -65,7 +67,8 @@ public class MenuActivity extends AppCompatActivity {
             Intent intent = new Intent(MenuActivity.this,MainActivity.class);
             intent.putExtra("secs",30);
             intent.putExtra("mins",0);
-            intent.putExtra("highScore",highestScoreValue);
+            intent.putExtra("highScoreTimed",highestScoreTimedValue);
+            intent.putExtra("highScoreUntimed",highestScoreUntimedValue);
             startActivity(intent);
             finish();
         }); //choose 30 seconds of play
@@ -74,12 +77,20 @@ public class MenuActivity extends AppCompatActivity {
             Intent intent = new Intent(MenuActivity.this,MainActivity.class);
             intent.putExtra("mins",1);
             intent.putExtra("secs",0);
-            intent.putExtra("highScore",highestScoreValue);
+            intent.putExtra("highScoreTimed",highestScoreTimedValue);
+            intent.putExtra("highScoreUntimed",highestScoreUntimedValue);
             startActivity(intent);
             finish();
         }); //choose 1 minute of play
 
         //TODO Do btnUntimedPlay logic + create separate Activity
+        btnUntimedPlay.setOnClickListener(v -> {
+            Intent intent = new Intent(MenuActivity.this,MainUntimedActivity.class);
+            intent.putExtra("highScoreTimed",highestScoreTimedValue);
+            intent.putExtra("highScoreUntimed",highestScoreUntimedValue);
+            startActivity(intent);
+            finish();
+        }); //choose 1 minute of play
 
         btnCustomBack.setOnClickListener(v -> menuCustomPlay.dismiss()); //close custom game menu
 
@@ -91,11 +102,14 @@ public class MenuActivity extends AppCompatActivity {
         menuScore.setCancelable(false);
 
         btnScore = findViewById(R.id.menubtn3);
-        highestScore = menuScore.findViewById(R.id.highestScore);
+        highestScoreTimed = menuScore.findViewById(R.id.highestScoreTimed);
+        highestScoreUntimed = menuScore.findViewById(R.id.highestScoreUntimed);
         btnCustomBack = menuScore.findViewById(R.id.btnBack);
 
-        highestScoreValue = getIntent().getIntExtra("score",0);
-        highestScore.setText(String.valueOf(highestScoreValue));
+        highestScoreTimedValue = getIntent().getIntExtra("scoreTimed",0);
+        highestScoreUntimedValue = getIntent().getIntExtra("scoreUntimed",0);
+        highestScoreTimed.setText(String.valueOf(highestScoreTimedValue));
+        highestScoreUntimed.setText(String.valueOf(highestScoreUntimedValue));
 
         btnScore.setOnClickListener(v -> menuScore.show()); //show scoreboard
         btnCustomBack.setOnClickListener(v -> menuScore.dismiss()); //close scoreboard

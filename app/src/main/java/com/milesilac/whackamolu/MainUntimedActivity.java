@@ -19,56 +19,25 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class MainUntimedActivity extends AppCompatActivity {
 
     private int score = 0;
     private int totalScore = 0;
-    private int secondTimer;
-    private int minuteTimer;
-    private int countdownDialogTimer;
-    private int getSecTimer;
-    private int getMinTimer;
     private int highScoreCheck;
-    private int lastUntimedHighScore;
+    private int lastTimedHighScore;
 
     Random moleGen = new Random();
     Button btnMainMenu;
-    TextView scoreboard, timerSeconds, timerMinutes, countdownDialog, totalScoreResult;
+    TextView scoreboard, countdownDialog, totalScoreResult;
     Dialog countdown, scoreResultDialog;
     Button[] buttons = new Button[10];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.activity_main_untimed);
 
         scoreboard = findViewById(R.id.gameScore);
-        timerSeconds = findViewById(R.id.timer2);
-        timerMinutes = findViewById(R.id.timer1);
-        getSecTimer = getIntent().getIntExtra("secs",15);
-        getMinTimer = getIntent().getIntExtra("mins",0);
-
-        //manual set of timer
-        secondTimer = getSecTimer;
-        minuteTimer = getMinTimer;
-
-        //for 1-9 secs, display is "00" to "09"
-        if (secondTimer >= 10) {
-            timerSeconds.setText(String.valueOf(secondTimer));
-        }
-        else {
-            timerSeconds.setText("0" + secondTimer);
-        }
-
-        //for 1-9 mins, display is "00" to "09"
-        if (minuteTimer >= 10) {
-            timerMinutes.setText(String.valueOf(minuteTimer));
-        }
-        else {
-            timerMinutes.setText("0" + minuteTimer);
-        }
-
 
         buttons[0] = findViewById(R.id.hit1);
         buttons[1] = findViewById(R.id.hit2);
@@ -88,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         countdown.setCancelable(true); //closes dialog
         countdown.show();
         countdown.setOnCancelListener(dialog -> {
-            TimerDigital();
             setTheMole();
         }); // starts game on dialog close
 
@@ -105,16 +73,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         btnMainMenu.setOnClickListener(v -> {
-            highScoreCheck = getIntent().getIntExtra("highScoreTimed",0);
-            lastUntimedHighScore = getIntent().getIntExtra("highScoreUntimed",0);
-            Intent intent = new Intent(MainActivity.this,MenuActivity.class);
+            highScoreCheck = getIntent().getIntExtra("highScoreUntimed",0);
+            lastTimedHighScore = getIntent().getIntExtra("highScoreTimed",0);
+            Intent intent = new Intent(MainUntimedActivity.this,MenuActivity.class);
             if (highScoreCheck > totalScore) {
-                intent.putExtra("scoreTimed",highScoreCheck);
+                intent.putExtra("scoreUntimed",highScoreCheck);
             }
             else {
-                intent.putExtra("scoreTimed",totalScore);
+                intent.putExtra("scoreUntimed",totalScore);
             }
-            intent.putExtra("scoreUntimed",lastUntimedHighScore);
+            intent.putExtra("scoreTimed",lastTimedHighScore);
             startActivity(intent);
             finish();
         });
@@ -166,50 +134,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //code for the countdown timer located at the upper right hand corner of the game
-    public void TimerDigital() {
-        final Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            // Do something after 1s = 1000ms
-
-            //every 60 secs, subtract 1 from mins
-            if (secondTimer == 0 && minuteTimer != 0) {
-                secondTimer = 60;
-                minuteTimer--;
-
-            }
-            secondTimer--;
-
-            //for 1-9 secs, display is "00" to "09"
-            if (secondTimer >= 10) {
-                timerSeconds.setText(String.valueOf(secondTimer));
-            }
-            else {
-                timerSeconds.setText("0" + secondTimer);
-            }
-
-            //for 1-9 mins, display is "00" to "09"
-            if (minuteTimer >= 10) {
-                timerMinutes.setText(String.valueOf(minuteTimer));
-            }
-            else {
-                timerMinutes.setText("0" + minuteTimer);
-            }
-
-            //if seconds and minutes timers are both 0, timer will stop
-            if (secondTimer == 0 && minuteTimer == 0) {
-                scoreResultDialog.show();
-                ScoreAnimation();
-            }
-            else {
-                TimerDigital();
-            }
-
-        }, 1000);
-
-    }
-
-
     //hit method for each button
     private void setTheMole() {
         final Handler handler = new Handler();
@@ -224,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             for (int i=0;i<10;i++) {
                 if (i == nextMole) {
                     buttons[i].setOnClickListener(v ->  {
-                        MediaPlayer playBonk = MediaPlayer.create(MainActivity.this,R.raw.bonk);
+                        MediaPlayer playBonk = MediaPlayer.create(MainUntimedActivity.this,R.raw.bonk);
                         buttons[nextMole].setBackgroundColor(0xFFFF6F00);
                         buttons[nextMole].setText("(>‿<)");
                         AddScore();
@@ -235,11 +159,12 @@ public class MainActivity extends AppCompatActivity {
                     int notMole = i;
                     System.out.println(notMole);
                     buttons[i].setOnClickListener(v -> {
-                        MediaPlayer playError = MediaPlayer.create(MainActivity.this,R.raw.errorbonk);
+                        MediaPlayer playError = MediaPlayer.create(MainUntimedActivity.this,R.raw.errorbonk);
                         buttons[notMole].setBackgroundColor(0xFFB71C1C);
                         buttons[notMole].setText("(#_#)");
-                        MinusScore();
                         playError.start();
+                        scoreResultDialog.show();
+                        ScoreAnimation();
                     });
                 }
             }
@@ -271,10 +196,6 @@ public class MainActivity extends AppCompatActivity {
         scoreboard.setText(String.valueOf(score));
     }
 
-    public void MinusScore() {
-        score--;
-        scoreboard.setText(String.valueOf(score));
-    }
 
 //    @Override
 //    protected void onStart() {

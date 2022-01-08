@@ -21,12 +21,6 @@
             android:background="#512DA8"
             android:padding="10dp">
 
-            <ImageView
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:background="@mipmap/ic_launcher_round"
-                android:layout_gravity="center_horizontal"/>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,7 +38,7 @@
                 android:layout_marginTop="30dp"
                 android:text="Thanks to the following:"
                 android:layout_gravity="center_horizontal"
-                android:textSize="17sp"
+                android:textSize="20sp"
                 android:textColor="@color/white"/>
 
             <TextView
