@@ -6,7 +6,7 @@ android {
     compileSdk 30
 
     defaultConfig {
-        applicationId "com.testarossa.whackamolu"
+        applicationId "com.milesilac.whackamolu"
         minSdk 21
         targetSdk 30
         versionCode 1
