@@ -17,7 +17,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import java.util.Random;
 
@@ -144,7 +144,7 @@ public class MenuActivity extends AppCompatActivity {
             GameViewTimed();
         }); //choose 1 minute of play
 
-        //TODO Do btnUntimedPlay logic + create separate Activity
+
         btnUntimedPlay.setOnClickListener(v -> {
             menuCustomPlay.dismiss();
             isUp = true;
