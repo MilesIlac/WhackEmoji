@@ -233,7 +233,8 @@ public class MenuActivity extends AppCompatActivity {
                 timerSeconds.setText(String.valueOf(secondTimer));
             }
             else {
-                timerSeconds.setText("0" + secondTimer);
+                String zeroSeconds = "0" + secondTimer;
+                timerSeconds.setText(zeroSeconds);
             }
 
             //for 1-9 mins, display is "00" to "09"
@@ -241,7 +242,8 @@ public class MenuActivity extends AppCompatActivity {
                 timerMinutes.setText(String.valueOf(minuteTimer));
             }
             else {
-                timerMinutes.setText("0" + minuteTimer);
+                String zeroMinutes = "0" + minuteTimer;
+                timerMinutes.setText(zeroMinutes);
             }
 
             menuLayout.addView(timedLayout,ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
@@ -398,7 +400,8 @@ public class MenuActivity extends AppCompatActivity {
                     timerSeconds.setText(String.valueOf(secondTimer));
                 }
                 else {
-                    timerSeconds.setText("0" + secondTimer);
+                    String zeroSeconds = "0" + secondTimer;
+                    timerSeconds.setText(zeroSeconds);
                 }
 
                 //for 1-9 mins, display is "00" to "09"
@@ -406,7 +409,8 @@ public class MenuActivity extends AppCompatActivity {
                     timerMinutes.setText(String.valueOf(minuteTimer));
                 }
                 else {
-                    timerMinutes.setText("0" + minuteTimer);
+                    String zeroMinutes = "0" + minuteTimer;
+                    timerMinutes.setText(zeroMinutes);
                 }
 
                 //if seconds and minutes timers are both 0, timer will stop

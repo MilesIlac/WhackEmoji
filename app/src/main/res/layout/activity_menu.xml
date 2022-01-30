@@ -20,10 +20,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Whack-A-Molu"
-            android:textSize="50sp"
+            android:text="@string/title"
             android:textAlignment="center"
             android:textColor="@color/white"
+            android:textSize="50sp"
             app:autoSizeTextType="uniform" />
 
         <Button
@@ -34,7 +34,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:backgroundTint="#311B92"
-            android:text="Quick Play"
+            android:text="@string/btnQuickPlay"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp" />
@@ -46,7 +46,7 @@
             android:layout_below="@+id/gameTitle"
             android:layout_centerHorizontal="true"
             android:backgroundTint="#311B92"
-            android:text="Custom"
+            android:text="@string/btnCustom"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp" />
@@ -58,10 +58,10 @@
             android:layout_below="@+id/menubtn2"
             android:layout_centerHorizontal="true"
             android:backgroundTint="#311B92"
-            android:text="Scoreboard"
-            android:textSize="15sp"
+            android:text="@string/btnScoreboard"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/menubtn4"
@@ -70,7 +70,7 @@
             android:layout_below="@+id/menubtn3"
             android:layout_centerHorizontal="true"
             android:backgroundTint="#311B92"
-            android:text="Credits"
+            android:text="@string/btnCredits"
             android:textSize="15sp"
             android:textAllCaps="false"
             android:textColor="@color/white" />
@@ -82,7 +82,7 @@
             android:layout_below="@+id/menubtn4"
             android:layout_centerHorizontal="true"
             android:backgroundTint="#311B92"
-            android:text="Quit"
+            android:text="@string/btnQuit"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp" />

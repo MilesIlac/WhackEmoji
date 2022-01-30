@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="CREDITS"
+                android:text="@string/creditsTitle"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -72,7 +72,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:id="@+id/btnGit"
-                android:text="GITHUB"/>
+                android:text="@string/btnGithub"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:id="@+id/btnBack"
-                android:text="BACK"
+                android:text="@string/btnBack"
                 />
 
         </LinearLayout>

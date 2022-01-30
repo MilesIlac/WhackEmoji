@@ -16,7 +16,7 @@
             android:id="@+id/timer1"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:text="00"
+            android:text="@string/timerDigits"
             android:textAlignment="center"
             android:textColor="@color/white"
             app:autoSizeTextType="uniform" />
@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="5dp"
             android:layout_height="60dp"
-            android:text=":"
+            android:text="@string/timerDivider"
             android:textAlignment="center"
             android:textColor="@color/white"
             app:autoSizeTextType="uniform"/>
@@ -33,7 +33,7 @@
             android:id="@+id/timer2"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:text="00"
+            android:text="@string/timerDigits"
             android:textAlignment="center"
             android:textColor="@color/white"
             app:autoSizeTextType="uniform" />
@@ -55,7 +55,7 @@
             android:layout_centerHorizontal="true"
             android:scaleX="1.7"
             android:scaleY="1.7"
-            android:text="0"
+            android:text="@string/currentGameScore"
             android:textAlignment="center"
             android:textColor="@color/white"
             app:autoSizeTextType="uniform" />
@@ -66,13 +66,13 @@
             android:layout_height="50dp"
             android:layout_below="@id/gameScore"
             android:layout_marginTop="50dp"
-            android:layout_marginRight="30dp"
-            android:layout_toLeftOf="@id/hit2"
+            android:layout_marginEnd="30dp"
+            android:layout_toStartOf="@id/hit2"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
 
-            android:text="(O‿O)"
+            android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="10sp" />
@@ -89,7 +89,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
 
-            android:text="(O‿O)"
+            android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="10sp" />
@@ -99,14 +99,14 @@
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_below="@id/gameScore"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="50dp"
-            android:layout_toRightOf="@id/hit2"
+            android:layout_toEndOf="@id/hit2"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
 
-            android:text="(O‿O)"
+            android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="10sp" />
@@ -117,13 +117,13 @@
             android:layout_height="50dp"
             android:layout_below="@id/hit2"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_toLeftOf="@id/hit5"
+            android:layout_marginEnd="30dp"
+            android:layout_toStartOf="@id/hit5"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
 
-            android:text="(O‿O)"
+            android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="10sp" />
@@ -134,13 +134,13 @@
             android:layout_height="50dp"
             android:layout_below="@id/hit2"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="15dp"
-            android:layout_toLeftOf="@id/centerGuide"
+            android:layout_marginEnd="15dp"
+            android:layout_toStartOf="@id/centerGuide"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
 
-            android:text="(O‿O)"
+            android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="10sp" />
@@ -150,14 +150,14 @@
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_below="@id/hit2"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="30dp"
-            android:layout_toRightOf="@id/centerGuide"
+            android:layout_toEndOf="@id/centerGuide"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
 
-            android:text="(O‿O)"
+            android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="10sp" />
@@ -167,14 +167,14 @@
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_below="@id/hit2"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
-            android:layout_toRightOf="@id/hit6"
+            android:layout_toEndOf="@id/hit6"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
 
-            android:text="(O‿O)"
+            android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="10sp" />
@@ -185,13 +185,13 @@
             android:layout_height="50dp"
             android:layout_below="@id/hit4"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_toLeftOf="@id/hit9"
+            android:layout_marginEnd="30dp"
+            android:layout_toStartOf="@id/hit9"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
 
-            android:text="(O‿O)"
+            android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="10sp" />
@@ -207,7 +207,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
 
-            android:text="(O‿O)"
+            android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="10sp" />
@@ -217,14 +217,14 @@
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_below="@id/hit4"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
-            android:layout_toRightOf="@id/hit9"
+            android:layout_toEndOf="@id/hit9"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
 
-            android:text="(O‿O)"
+            android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="10sp" />
@@ -235,7 +235,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/hit2"
             android:layout_centerHorizontal="true"
-            android:text="TextView"
             android:visibility="invisible" />
 
     </RelativeLayout>

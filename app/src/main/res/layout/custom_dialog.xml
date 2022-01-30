@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="CUSTOM GAME SETUP"
+                android:text="@string/customGTitle"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Set Timer"
+                android:text="@string/setTimer"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/white"
                 android:textSize="20sp"/>
@@ -50,7 +50,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:id="@+id/secs15"
-                android:text="15 seconds"/>
+                android:text="@string/btn15Secs"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
                 android:backgroundTint="#311B92"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/secs30"
-                android:text="30 seconds"/>
+                android:text="@string/btn30Secs"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
                 android:backgroundTint="#311B92"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/secs60"
-                android:text="1 minute"/>
+                android:text="@string/btn60Secs"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                 android:backgroundTint="#311B92"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/secsNull"
-                android:text="UNTIMED"/>
+                android:text="@string/btnUntimed"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
                 android:id="@+id/btnBack"
-                android:text="BACK"
+                android:text="@string/btnBack"
                 />
 
         </LinearLayout>
