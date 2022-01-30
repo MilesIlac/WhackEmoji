@@ -44,15 +44,15 @@ public class MenuActivity extends AppCompatActivity {
     private int putScoreUntimed;
 
 
-    Random moleGen = new Random();
-    Button btnMainMenu;
-    TextView scoreboard, timerSeconds, timerMinutes, countdownDialog, totalScoreResult;
-    Dialog countdown, scoreResultDialog;
-    Button[] buttons = new Button[10];
+    private Random moleGen = new Random();
+    private Button btnMainMenu;
+    private TextView scoreboard, timerSeconds, timerMinutes, timerDivider, countdownDialog, totalScoreResult;
+    private Dialog countdown, scoreResultDialog;
+    private Button[] buttons = new Button[10];
 
     private RelativeLayout menuLayout;
     boolean isUp = false;
-
+    boolean isTimed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,9 @@ public class MenuActivity extends AppCompatActivity {
             btnCredits.setEnabled(false);
             btnQuit.setEnabled(false);
 
-            GameViewTimed();
+            isTimed = true;
+
+            GameView();
         });
 
         menuCustomPlay = new Dialog(this);
@@ -106,8 +108,9 @@ public class MenuActivity extends AppCompatActivity {
             btnCredits.setEnabled(false);
             btnQuit.setEnabled(false);
 
+            isTimed = true;
 
-            GameViewTimed();
+            GameView();
         }); //choose 15 seconds of play
 
         btn30sPlay.setOnClickListener(v -> {
@@ -123,8 +126,9 @@ public class MenuActivity extends AppCompatActivity {
             btnCredits.setEnabled(false);
             btnQuit.setEnabled(false);
 
+            isTimed = true;
 
-            GameViewTimed();
+            GameView();
         }); //choose 30 seconds of play
 
         btn60sPlay.setOnClickListener(v -> {
@@ -140,8 +144,9 @@ public class MenuActivity extends AppCompatActivity {
             btnCredits.setEnabled(false);
             btnQuit.setEnabled(false);
 
+            isTimed = true;
 
-            GameViewTimed();
+            GameView();
         }); //choose 1 minute of play
 
 
@@ -156,11 +161,14 @@ public class MenuActivity extends AppCompatActivity {
             btnCredits.setEnabled(false);
             btnQuit.setEnabled(false);
 
-            GameViewUntimed();
+            isTimed = false;
+
+            GameView();
         }); //choose untimed play
 
         btnCustomBack.setOnClickListener(v -> menuCustomPlay.dismiss()); //close custom game menu
 
+        isTimed = false;
 
         menuScore = new Dialog(this);
         menuScore.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -192,7 +200,7 @@ public class MenuActivity extends AppCompatActivity {
 
         //view Github in local browser
         btnGit.setOnClickListener(v -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/MilesIlac/whack-a-molu"));
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/MilesIlac/whack-a-molu/tree/basic"));
             startActivity(browserIntent);
         });
 
@@ -205,113 +213,67 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
-    public void GameViewTimed() {
+    public void GameView() {
 
-            LayoutInflater TimedPlay = getLayoutInflater();
-            View timedLayout = TimedPlay.inflate(R.layout.activity_main,null);
+        LayoutInflater gamePlay = getLayoutInflater();
+        View gameLayout = gamePlay.inflate(R.layout.activity_main,null);
 
-            scoreboard = timedLayout.findViewById(R.id.gameScore);
-            timerSeconds = timedLayout.findViewById(R.id.timer2);
-            timerMinutes = timedLayout.findViewById(R.id.timer1);
-            buttons[0] = timedLayout.findViewById(R.id.hit1);
-            buttons[1] = timedLayout.findViewById(R.id.hit2);
-            buttons[2] = timedLayout.findViewById(R.id.hit3);
-            buttons[3] = timedLayout.findViewById(R.id.hit4);
-            buttons[4] = timedLayout.findViewById(R.id.hit5);
-            buttons[5] = timedLayout.findViewById(R.id.hit6);
-            buttons[6] = timedLayout.findViewById(R.id.hit7);
-            buttons[7] = timedLayout.findViewById(R.id.hit8);
-            buttons[8] = timedLayout.findViewById(R.id.hit9);
-            buttons[9] = timedLayout.findViewById(R.id.hit10);
+        scoreboard = gameLayout.findViewById(R.id.gameScore);
+        timerSeconds = gameLayout.findViewById(R.id.timer2);
+        timerMinutes = gameLayout.findViewById(R.id.timer1);
+        timerDivider = gameLayout.findViewById(R.id.timerDivider);
+        buttons[0] = gameLayout.findViewById(R.id.hit1);
+        buttons[1] = gameLayout.findViewById(R.id.hit2);
+        buttons[2] = gameLayout.findViewById(R.id.hit3);
+        buttons[3] = gameLayout.findViewById(R.id.hit4);
+        buttons[4] = gameLayout.findViewById(R.id.hit5);
+        buttons[5] = gameLayout.findViewById(R.id.hit6);
+        buttons[6] = gameLayout.findViewById(R.id.hit7);
+        buttons[7] = gameLayout.findViewById(R.id.hit8);
+        buttons[8] = gameLayout.findViewById(R.id.hit9);
+        buttons[9] = gameLayout.findViewById(R.id.hit10);
 
-            //manual set of timer
-            secondTimer = getSecTimer;
-            minuteTimer = getMinTimer;
+        if (isTimed) {
+            timerSeconds.setEnabled(true);
+            timerSeconds.setVisibility(View.VISIBLE);
+            timerDivider.setVisibility(View.VISIBLE);
+            timerMinutes.setEnabled(true);
+            timerMinutes.setVisibility(View.VISIBLE);
+        }
+        else {
+            timerSeconds.setEnabled(false);
+            timerSeconds.setVisibility(View.GONE);
+            timerDivider.setVisibility(View.GONE);
+            timerMinutes.setEnabled(false);
+            timerMinutes.setVisibility(View.GONE);
+        }
 
-            //for 1-9 secs, display is "00" to "09"
-            if (secondTimer >= 10) {
-                timerSeconds.setText(String.valueOf(secondTimer));
-            }
-            else {
-                String zeroSeconds = "0" + secondTimer;
-                timerSeconds.setText(zeroSeconds);
-            }
+        if (isTimed) {
+                //manual set of timer
+                secondTimer = getSecTimer;
+                minuteTimer = getMinTimer;
 
-            //for 1-9 mins, display is "00" to "09"
-            if (minuteTimer >= 10) {
-                timerMinutes.setText(String.valueOf(minuteTimer));
-            }
-            else {
-                String zeroMinutes = "0" + minuteTimer;
-                timerMinutes.setText(zeroMinutes);
-            }
-
-            menuLayout.addView(timedLayout,ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-
-            countdown = new Dialog(this);
-            countdown.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            countdown.setContentView(R.layout.countdown);
-            countdown.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            countdown.setCancelable(true); //closes dialog
-            countdown.show();
-            countdown.setOnCancelListener(dialog -> {
-                TimerDigital();
-                setTheMoleTimed();
-            }); // starts game on dialog close
-
-            scoreResultDialog = new Dialog(this);
-            scoreResultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            scoreResultDialog.setContentView(R.layout.score_result_dialog);
-            scoreResultDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            scoreResultDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-            scoreResultDialog.setCancelable(false); //closes dialog
-
-            totalScoreResult = scoreResultDialog.findViewById(R.id.totalScoreResult);
-            btnMainMenu = scoreResultDialog.findViewById(R.id.btnMainMenu);
-
-            btnMainMenu.setOnClickListener(v1 -> {
-                highScoreCheck = Integer.parseInt(savedTimedScore);
-                if (highScoreCheck > totalScore) {
-                    putScoreTimed = highScoreCheck;
-                    saveData();
+                //for 1-9 secs, display is "00" to "09"
+                if (secondTimer >= 10) {
+                    timerSeconds.setText(String.valueOf(secondTimer));
                 }
                 else {
-                    putScoreTimed = totalScore;
-                    saveData();
+                    String zeroSeconds = "0" + secondTimer;
+                    timerSeconds.setText(zeroSeconds);
                 }
 
-                scoreResultDialog.dismiss();
-                menuLayout.removeView(timedLayout);
-                btnQuickPlay.setEnabled(true);
-                btnCustomPlay.setEnabled(true);
-                btnScore.setEnabled(true);
-                btnCredits.setEnabled(true);
-                btnQuit.setEnabled(true);
-                isUp = false;
-                loadData();
+                //for 1-9 mins, display is "00" to "09"
+                if (minuteTimer >= 10) {
+                    timerMinutes.setText(String.valueOf(minuteTimer));
+                }
+                else {
+                    String zeroMinutes = "0" + minuteTimer;
+                    timerMinutes.setText(zeroMinutes);
+                }
+            }
 
-            });
 
-    }
-
-    public void GameViewUntimed() {
-
-        LayoutInflater UntimedPlay = getLayoutInflater();
-        View unTimedLayout = UntimedPlay.inflate(R.layout.activity_main_untimed,null);
-
-        scoreboard = unTimedLayout.findViewById(R.id.gameScore);
-        buttons[0] = unTimedLayout.findViewById(R.id.hit1);
-        buttons[1] = unTimedLayout.findViewById(R.id.hit2);
-        buttons[2] = unTimedLayout.findViewById(R.id.hit3);
-        buttons[3] = unTimedLayout.findViewById(R.id.hit4);
-        buttons[4] = unTimedLayout.findViewById(R.id.hit5);
-        buttons[5] = unTimedLayout.findViewById(R.id.hit6);
-        buttons[6] = unTimedLayout.findViewById(R.id.hit7);
-        buttons[7] = unTimedLayout.findViewById(R.id.hit8);
-        buttons[8] = unTimedLayout.findViewById(R.id.hit9);
-        buttons[9] = unTimedLayout.findViewById(R.id.hit10);
-
-        menuLayout.addView(unTimedLayout,ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+        menuLayout.addView(gameLayout,ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
 
         countdown = new Dialog(this);
         countdown.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -319,7 +281,15 @@ public class MenuActivity extends AppCompatActivity {
         countdown.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         countdown.setCancelable(true); //closes dialog
         countdown.show();
-        countdown.setOnCancelListener(dialog -> setTheMoleUntimed()); // starts game on dialog close
+        countdown.setOnCancelListener(dialog -> {
+            if (isTimed) {
+                TimerDigital();
+                setTheMoleTimed();
+            }
+            else {
+                setTheMoleUntimed();
+            }
+        }); // starts game on dialog close
 
         scoreResultDialog = new Dialog(this);
         scoreResultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -331,20 +301,33 @@ public class MenuActivity extends AppCompatActivity {
         totalScoreResult = scoreResultDialog.findViewById(R.id.totalScoreResult);
         btnMainMenu = scoreResultDialog.findViewById(R.id.btnMainMenu);
 
-
         btnMainMenu.setOnClickListener(v1 -> {
-            highScoreCheck = Integer.parseInt(savedUntimedScore);
-            if (highScoreCheck > totalScore) {
-                putScoreUntimed = highScoreCheck;
-                saveData();
+            if (isTimed) {
+                highScoreCheck = Integer.parseInt(savedTimedScore);
+                if (highScoreCheck > totalScore) {
+                    putScoreTimed = highScoreCheck;
+                    saveData();
+                }
+                else {
+                    putScoreTimed = totalScore;
+                    saveData();
+                }
             }
             else {
-                putScoreUntimed = totalScore;
-                saveData();
-            }
+                    highScoreCheck = Integer.parseInt(savedUntimedScore);
+                    if (highScoreCheck > totalScore) {
+                        putScoreUntimed = highScoreCheck;
+                        saveData();
+                    }
+                    else {
+                        putScoreUntimed = totalScore;
+                        saveData();
+                    }
+                }
+
 
             scoreResultDialog.dismiss();
-            menuLayout.removeView(unTimedLayout);
+            menuLayout.removeView(gameLayout);
             btnQuickPlay.setEnabled(true);
             btnCustomPlay.setEnabled(true);
             btnScore.setEnabled(true);
@@ -352,6 +335,7 @@ public class MenuActivity extends AppCompatActivity {
             btnQuit.setEnabled(true);
             isUp = false;
             loadData();
+
         });
 
     }
@@ -471,7 +455,6 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
-    //hit method for each button
     private void setTheMoleUntimed() {
         if (isUp) {
             final Handler handler = new Handler();
@@ -531,6 +514,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
+    //scoring logic
     public void AddScore() {
         score++;
         scoreboard.setText(String.valueOf(score));
@@ -541,7 +525,7 @@ public class MenuActivity extends AppCompatActivity {
         scoreboard.setText(String.valueOf(score));
     }
 
-
+    //data persistence
     public void saveData() {
         SharedPreferences sharedPrefs = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();

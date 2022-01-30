@@ -22,6 +22,7 @@
             app:autoSizeTextType="uniform" />
 
         <TextView
+            android:id="@+id/timerDivider"
             android:layout_width="5dp"
             android:layout_height="60dp"
             android:text="@string/timerDivider"
