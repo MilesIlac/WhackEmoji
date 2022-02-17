@@ -23,7 +23,7 @@
             android:text="@string/title"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="50sp"
+            android:textSize="45sp"
             app:autoSizeTextType="uniform" />
 
         <Button

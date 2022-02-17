@@ -42,9 +42,8 @@
     </LinearLayout>
 
 
-
     <RelativeLayout
-        android:layout_width="380dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="visible">
@@ -67,16 +66,16 @@
             android:layout_height="50dp"
             android:layout_below="@id/gameScore"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="10dp"
             android:layout_toStartOf="@id/hit2"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-
+            android:padding="0dp"
             android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="11sp" />
 
 
         <Button
@@ -89,113 +88,113 @@
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-
+            android:padding="0dp"
             android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="11sp" />
 
         <Button
             android:id="@+id/hit3"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_below="@id/gameScore"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="50dp"
             android:layout_toEndOf="@id/hit2"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-
+            android:padding="0dp"
             android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="11sp" />
 
         <Button
             android:id="@+id/hit4"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_below="@id/hit2"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_toStartOf="@id/hit5"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-
+            android:padding="0dp"
             android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="11sp" />
 
         <Button
             android:id="@+id/hit5"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_below="@id/hit2"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
             android:layout_toStartOf="@id/centerGuide"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-
+            android:padding="0dp"
             android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="11sp" />
 
         <Button
             android:id="@+id/hit6"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_below="@id/hit2"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/centerGuide"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-
+            android:padding="0dp"
             android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="11sp" />
 
         <Button
             android:id="@+id/hit7"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_below="@id/hit2"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/hit6"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-
+            android:padding="0dp"
             android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="11sp" />
 
         <Button
             android:id="@+id/hit8"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_below="@id/hit4"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_toStartOf="@id/hit9"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-
+            android:padding="0dp"
             android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="11sp" />
 
         <Button
             android:id="@+id/hit9"
@@ -203,32 +202,32 @@
             android:layout_height="50dp"
             android:layout_below="@id/hit4"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-
+            android:padding="0dp"
             android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="11sp" />
 
         <Button
             android:id="@+id/hit10"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_below="@id/hit4"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/hit9"
             android:backgroundTint="#311B92"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-
+            android:padding="0dp"
             android:text="@string/defaultState"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/centerGuide"
