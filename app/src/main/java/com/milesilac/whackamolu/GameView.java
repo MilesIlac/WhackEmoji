@@ -2,12 +2,10 @@ package com.milesilac.whackamolu;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -15,6 +13,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Locale;
 import java.util.Random;
 
 
@@ -22,19 +21,16 @@ public class GameView {
 
     private int score;
     private int totalScore;
-    private int secondTimer;
-    private int minuteTimer;
     private int countdownDialogTimer;
-    private int getSecTimer;
-    private int getMinTimer;
+    private int getTimer;
+    private int putTimer;
     private int highScoreCheck;
     private int putScoreTimed;
     private int putScoreUntimed;
 
-
     private Random moleGen = new Random();
     private Button btnMainMenu;
-    private TextView scoreboard, timerSeconds, timerMinutes, timerDivider, countdownDialog, totalScoreResult;
+    private TextView scoreboard, timerView, countdownDialog, totalScoreResult;
     private Dialog countdown, scoreResultDialog;
     private Button[] buttons = new Button[10];
 
@@ -44,18 +40,15 @@ public class GameView {
 
     Context context;
 
-
-    public GameView(int score, int totalScore, int getSecTimer, int getMinTimer, RelativeLayout menuLayout, boolean isUp, boolean isTimed, Context context) {
+    public GameView(int score, int totalScore, RelativeLayout menuLayout, boolean isUp, boolean isTimed, Context context, int getTimer) {
         this.score = score;
         this.totalScore = totalScore;
-        this.getSecTimer = getSecTimer;
-        this.getMinTimer = getMinTimer;
         this.menuLayout = menuLayout;
         this.isUp = isUp;
         this.isTimed = isTimed;
         this.context = context;
+        this.getTimer = getTimer;
     }
-
 
     public void setGameView() {
 
@@ -65,9 +58,7 @@ public class GameView {
         View gameLayout = gamePlay.inflate(R.layout.activity_main,null);
 
         scoreboard = gameLayout.findViewById(R.id.gameScore);
-        timerSeconds = gameLayout.findViewById(R.id.timer2);
-        timerMinutes = gameLayout.findViewById(R.id.timer1);
-        timerDivider = gameLayout.findViewById(R.id.timerDivider);
+        timerView = gameLayout.findViewById(R.id.timerView);
         buttons[0] = gameLayout.findViewById(R.id.hit1);
         buttons[1] = gameLayout.findViewById(R.id.hit2);
         buttons[2] = gameLayout.findViewById(R.id.hit3);
@@ -81,45 +72,17 @@ public class GameView {
 
         //-- code for upper-right hand timer visibility
         if (isTimed) {
-            timerSeconds.setEnabled(true);
-            timerSeconds.setVisibility(View.VISIBLE);
-            timerDivider.setVisibility(View.VISIBLE);
-            timerMinutes.setEnabled(true);
-            timerMinutes.setVisibility(View.VISIBLE);
+            timerView.setEnabled(true);
+            timerView.setVisibility(View.VISIBLE);
+
+            // manual set of timer
+            putTimer = getTimer;
         }
         else {
-            timerSeconds.setEnabled(false);
-            timerSeconds.setVisibility(View.GONE);
-            timerDivider.setVisibility(View.GONE);
-            timerMinutes.setEnabled(false);
-            timerMinutes.setVisibility(View.GONE);
+            timerView.setEnabled(false);
+            timerView.setVisibility(View.GONE);
         }
         //--
-
-        if (isTimed) {
-            //manual set of timer
-            secondTimer = getSecTimer;
-            minuteTimer = getMinTimer;
-
-            //for 1-9 secs, display is "00" to "09"
-            if (secondTimer >= 10) {
-                timerSeconds.setText(String.valueOf(secondTimer));
-            }
-            else {
-                String zeroSeconds = "0" + secondTimer;
-                timerSeconds.setText(zeroSeconds);
-            }
-
-            //for 1-9 mins, display is "00" to "09"
-            if (minuteTimer >= 10) {
-                timerMinutes.setText(String.valueOf(minuteTimer));
-            }
-            else {
-                String zeroMinutes = "0" + minuteTimer;
-                timerMinutes.setText(zeroMinutes);
-            }
-        }
-
 
         menuLayout.addView(gameLayout, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
 
@@ -128,6 +91,7 @@ public class GameView {
         countdown.setContentView(R.layout.countdown);
         countdown.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         countdown.setCancelable(true); //closes dialog
+        timerView.setText(getTimerText());
         countdown.show();
         countdown.setOnCancelListener(dialog -> {
             if (isTimed) {
@@ -155,22 +119,12 @@ public class GameView {
         btnMainMenu.setOnClickListener(v1 -> {
             if (isTimed) {
                 highScoreCheck = Integer.parseInt(SharedPrefs.read(SharedPrefs.HIGHSCORETIMED, "0"));
-                if (highScoreCheck > totalScore) {
-                    putScoreTimed = highScoreCheck;
-                }
-                else {
-                    putScoreTimed = totalScore;
-                }
+                putScoreTimed = Math.max(highScoreCheck, totalScore);
                 SharedPrefs.write(SharedPrefs.HIGHSCORETIMED, String.valueOf(putScoreTimed));//save string in shared preference.
             }
             else {
                 highScoreCheck = Integer.parseInt(SharedPrefs.read(SharedPrefs.HIGHSCOREUNTIMED, "0"));
-                if (highScoreCheck > totalScore) {
-                    putScoreUntimed = highScoreCheck;
-                }
-                else {
-                    putScoreUntimed = totalScore;
-                }
+                putScoreUntimed = Math.max(highScoreCheck, totalScore);
                 SharedPrefs.write(SharedPrefs.HIGHSCOREUNTIMED, String.valueOf(putScoreUntimed));//save string in shared preference.
             }
 
@@ -196,37 +150,15 @@ public class GameView {
     public void TimerDigital() {
         if (isUp) {
             final Handler handler = new Handler();
+            timerView.setText(getTimerText());
             handler.postDelayed(() -> {
                 // Do something after 1s = 1000ms
 
-                //every 60 secs, subtract 1 from mins
-                if (secondTimer == 0 && minuteTimer != 0) {
-                    secondTimer = 60;
-                    minuteTimer--;
-
-                }
-                secondTimer--;
-
-                //for 1-9 secs, display is "00" to "09"
-                if (secondTimer >= 10) {
-                    timerSeconds.setText(String.valueOf(secondTimer));
-                }
-                else {
-                    String zeroSeconds = "0" + secondTimer;
-                    timerSeconds.setText(zeroSeconds);
-                }
-
-                //for 1-9 mins, display is "00" to "09"
-                if (minuteTimer >= 10) {
-                    timerMinutes.setText(String.valueOf(minuteTimer));
-                }
-                else {
-                    String zeroMinutes = "0" + minuteTimer;
-                    timerMinutes.setText(zeroMinutes);
-                }
+                timerView.setText(getTimerText());
+                putTimer--;
 
                 //if seconds and minutes timers are both 0, timer will stop
-                if (secondTimer == 0 && minuteTimer == 0) {
+                if (putTimer == -1) {
                     scoreResultDialog.show();
                     ScoreAnimation();
                 }
@@ -237,8 +169,19 @@ public class GameView {
             }, 1000);
         }
 
+    } //TimerDigital()
+    private String getTimerText() {
+        int rounded = Math.round(putTimer);
 
+        int seconds = ((rounded % 86400) % 3600) % 60;
+        int minutes = ((rounded % 86400) % 3600) / 60;
+
+        return formatTime(seconds, minutes);
     }
+    private String formatTime(int seconds, int minutes) {
+        return String.format(Locale.getDefault(),"%02d",minutes) + ":" + String.format(Locale.getDefault(),"%02d",seconds);
+    }
+
 
     public void ScoreAnimation() {
         final Handler handler = new Handler();
@@ -371,7 +314,6 @@ public class GameView {
         score--;
         scoreboard.setText(String.valueOf(score));
     }
-
 
 
 }

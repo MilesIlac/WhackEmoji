@@ -3,25 +3,14 @@ package com.milesilac.whackamolu;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
-import java.util.Random;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -29,24 +18,13 @@ public class MenuActivity extends AppCompatActivity {
     public static Button btnQuickPlay, btnCustomPlay, btnScore, btnCredits, btnQuit;
     private Dialog menuCustomPlay, menuScore, menuCredits;
     public static TextView highestScoreTimed, highestScoreUntimed;
-    private String savedTimedScore, savedUntimedScore;
+    private int getTimer;
 
     private int score;
     private int totalScore;
-    private int secondTimer;
-    private int minuteTimer;
     private int countdownDialogTimer;
-    private int getSecTimer;
-    private int getMinTimer;
-    private int highScoreCheck;
-    private int putScoreTimed;
-    private int putScoreUntimed;
 
-    private Random moleGen = new Random();
-    private Button btnMainMenu;
-    private TextView scoreboard, timerSeconds, timerMinutes, timerDivider, countdownDialog, totalScoreResult;
-    private Dialog countdown, scoreResultDialog;
-    private Button[] buttons = new Button[10];
+
 
     private RelativeLayout menuLayout;
     boolean isUp = false;
@@ -67,18 +45,15 @@ public class MenuActivity extends AppCompatActivity {
             isUp = true;
             score = 0;
             totalScore = 0;
-            getSecTimer = 15;
-            getMinTimer = 0;
+            getTimer = 15;
             btnQuickPlay.setEnabled(false);
             btnCustomPlay.setEnabled(false);
             btnScore.setEnabled(false);
             btnCredits.setEnabled(false);
             btnQuit.setEnabled(false);
-
             isTimed = true;
 
-
-            GameView gameView = new GameView(score,totalScore,getSecTimer,getMinTimer,menuLayout,isUp,isTimed,MenuActivity.this);
+            GameView gameView = new GameView(score,totalScore,menuLayout,isUp,isTimed,MenuActivity.this,getTimer);
             gameView.setGameView();
         });
 
@@ -105,8 +80,7 @@ public class MenuActivity extends AppCompatActivity {
             isUp = true;
             score = 0;
             totalScore = 0;
-            getSecTimer = 15;
-            getMinTimer = 0;
+            getTimer = 15;
             btnQuickPlay.setEnabled(false);
             btnCustomPlay.setEnabled(false);
             btnScore.setEnabled(false);
@@ -114,7 +88,7 @@ public class MenuActivity extends AppCompatActivity {
             btnQuit.setEnabled(false);
             isTimed = true;
 
-            GameView gameView = new GameView(score,totalScore,getSecTimer,getMinTimer,menuLayout,isUp,isTimed,MenuActivity.this);
+            GameView gameView = new GameView(score,totalScore,menuLayout,isUp,isTimed,MenuActivity.this,getTimer);
             gameView.setGameView();
         }); //choose 15 seconds of play
 
@@ -123,8 +97,7 @@ public class MenuActivity extends AppCompatActivity {
             isUp = true;
             score = 0;
             totalScore = 0;
-            getSecTimer = 30;
-            getMinTimer = 0;
+            getTimer = 30;
             btnQuickPlay.setEnabled(false);
             btnCustomPlay.setEnabled(false);
             btnScore.setEnabled(false);
@@ -132,7 +105,7 @@ public class MenuActivity extends AppCompatActivity {
             btnQuit.setEnabled(false);
             isTimed = true;
 
-            GameView gameView = new GameView(score,totalScore,getSecTimer,getMinTimer,menuLayout,isUp,isTimed,MenuActivity.this);
+            GameView gameView = new GameView(score,totalScore,menuLayout,isUp,isTimed,MenuActivity.this,getTimer);
             gameView.setGameView();
         }); //choose 30 seconds of play
 
@@ -141,8 +114,7 @@ public class MenuActivity extends AppCompatActivity {
             isUp = true;
             score = 0;
             totalScore = 0;
-            getSecTimer = 0;
-            getMinTimer = 1;
+            getTimer = 60;
             btnQuickPlay.setEnabled(false);
             btnCustomPlay.setEnabled(false);
             btnScore.setEnabled(false);
@@ -150,7 +122,7 @@ public class MenuActivity extends AppCompatActivity {
             btnQuit.setEnabled(false);
             isTimed = true;
 
-            GameView gameView = new GameView(score,totalScore,getSecTimer,getMinTimer,menuLayout,isUp,isTimed,MenuActivity.this);
+            GameView gameView = new GameView(score,totalScore,menuLayout,isUp,isTimed,MenuActivity.this,getTimer);
             gameView.setGameView();
         }); //choose 1 minute of play
 
@@ -159,8 +131,7 @@ public class MenuActivity extends AppCompatActivity {
             isUp = true;
             score = 0;
             totalScore = 0;
-            getSecTimer = 0;
-            getMinTimer = 0;
+            getTimer = 0;
             btnQuickPlay.setEnabled(false);
             btnCustomPlay.setEnabled(false);
             btnScore.setEnabled(false);
@@ -168,7 +139,7 @@ public class MenuActivity extends AppCompatActivity {
             btnQuit.setEnabled(false);
             isTimed = false;
 
-            GameView gameView = new GameView(score,totalScore,getSecTimer,getMinTimer,menuLayout,isUp,isTimed,MenuActivity.this);
+            GameView gameView = new GameView(score,totalScore,menuLayout,isUp,isTimed,MenuActivity.this,getTimer);
             gameView.setGameView();
         }); //choose untimed play
 
@@ -189,8 +160,8 @@ public class MenuActivity extends AppCompatActivity {
         btnCustomBack = menuScore.findViewById(R.id.btnBack);
 
         //-- sharedPrefs
-        savedTimedScore = SharedPrefs.read(SharedPrefs.HIGHSCORETIMED, "0");//read string in shared preference.
-        savedUntimedScore = SharedPrefs.read(SharedPrefs.HIGHSCOREUNTIMED, "0");//read string in shared preference.
+        String savedTimedScore = SharedPrefs.read(SharedPrefs.HIGHSCORETIMED, "0");//read string in shared preference.
+        String savedUntimedScore = SharedPrefs.read(SharedPrefs.HIGHSCOREUNTIMED, "0");//read string in shared preference.
         highestScoreTimed.setText(savedTimedScore);
         highestScoreUntimed.setText(savedUntimedScore);
         //--

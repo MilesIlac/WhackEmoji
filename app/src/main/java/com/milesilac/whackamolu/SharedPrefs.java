@@ -4,7 +4,6 @@ package com.milesilac.whackamolu;
     SharedPrefs Singleton
  */
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -43,4 +42,4 @@ public class SharedPrefs {
         editor.putInt(key, value);
         editor.apply();
     }
-}
+} //SharedPrefs
