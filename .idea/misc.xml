@@ -12,12 +12,18 @@
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/drawable/countdown.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/drawable/dialog_background.xml" value="0.3828125" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/drawable/hexagon_background.xml" value="0.3828125" />
-        <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/activity_game.xml" value="0.55" />
+        <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/activity_main.xml" value="0.26944444444444443" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/activity_main_untimed.xml" value="0.5" />
-        <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/activity_menu.xml" value="0.3283514492753623" />
+        <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/activity_menu.xml" value="0.3321917808219178" />
+        <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/activity_menu2.xml" value="0.24494949494949494" />
+        <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/blank_fragment.xml" value="0.55" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/countdown.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/credits_dialog.xml" value="0.3283514492753623" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/custom_dialog.xml" value="0.3283514492753623" />
+        <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/fragment_blank.xml" value="0.24494949494949494" />
+        <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/fragment_game.xml" value="0.55" />
+        <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/fragment_menu.xml" value="0.1" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/list_scores.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/score_result_dialog.xml" value="0.3283514492753623" />
         <entry key="..\:/Users/BlackSpade/AndroidStudioProjects/whack-a-molu/app/src/main/res/layout/scoreboard_dialog.xml" value="0.20520833333333333" />
