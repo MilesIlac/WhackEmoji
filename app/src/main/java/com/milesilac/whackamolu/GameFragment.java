@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -52,15 +51,14 @@ public class GameFragment extends Fragment {
     private int putScoreUntimed;
 
     private final Random moleGen = new Random();
+    private final Random delayGen = new Random();
     private Button btnMainMenu;
     private TextView scoreboard, timerView, countdownDialog, totalScoreResult;
-    private Dialog countdown, scoreResultDialog;
-    private Button[] buttons = new Button[10];
+    private Dialog scoreResultDialog;
+    private final Button[] buttons = new Button[10];
 
-    private RelativeLayout menuLayout;
-    boolean isUp;// = true;
-    boolean isTimed;// = false;
-
+    boolean isUp;
+    boolean isTimed;
 
 
     public GameFragment() {
@@ -108,7 +106,6 @@ public class GameFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        SharedPrefs.init(getContext());
         FragmentManager fragmentManager = getParentFragmentManager();
 
         scoreboard = requireView().findViewById(R.id.gameScore);
@@ -136,7 +133,7 @@ public class GameFragment extends Fragment {
             timerView.setVisibility(View.GONE);
         }
 
-        countdown = new Dialog(getContext());
+        Dialog countdown = new Dialog(getContext());
         countdown.requestWindowFeature(Window.FEATURE_NO_TITLE);
         countdown.setContentView(R.layout.countdown);
         countdown.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -181,11 +178,10 @@ public class GameFragment extends Fragment {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainerView, MenuFragment.class, null)
                     .setReorderingAllowed(true)
-//                    .addToBackStack("name") // name can be null
                     .commit();
 
         });
-    }
+    } //onViewCreated
 
     //code for the countdown timer located at the upper right hand corner of the game
     public void TimerDigital() {
@@ -248,9 +244,12 @@ public class GameFragment extends Fragment {
     }
 
 
+
     //hit method for each button
     private void setTheMoleTimed() {
         if (isUp) {
+            int nextDelay = 500 + delayGen.nextInt(1000);
+            System.out.println("Current delay: " + nextDelay);
             final Handler handler = new Handler();
             handler.postDelayed(() -> {
                 // Do something every 1.5s = 1500ms
@@ -284,14 +283,16 @@ public class GameFragment extends Fragment {
                 }
 
                 setTheMoleTimed();
-                NoMoleState();
-            }, 1300);
+                NoMoleState(nextDelay);
+            }, nextDelay);
         }
 
     }
 
     private void setTheMoleUntimed() {
         if (isUp) {
+            int nextDelay = 500 + delayGen.nextInt(1000);
+            System.out.println("Current delay: " + nextDelay);
             final Handler handler = new Handler();
             handler.postDelayed(() -> {
                 // Do something every 1.5s = 1500ms
@@ -326,14 +327,16 @@ public class GameFragment extends Fragment {
                     }
                 }
 
+
                 setTheMoleUntimed();
-                NoMoleState();
-            }, 1300);
+                NoMoleState(nextDelay);
+            }, nextDelay);
         }
 
     }
 
-    public void NoMoleState() {
+    public void NoMoleState(int delay) {
+        System.out.println("inputted delay at NoMoleState: " + delay);
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
             // Do something after 1.45s = 1450ms
@@ -344,7 +347,7 @@ public class GameFragment extends Fragment {
                 buttons[i].setText("(O‿O)");
             }
 
-        }, 1250);
+        }, delay-50);
     }
 
 

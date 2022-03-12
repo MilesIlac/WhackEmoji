@@ -16,10 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,15 +39,9 @@ public class MenuFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Button btn15sPlay, btn30sPlay, btn60sPlay, btnUntimedPlay, btnCustomBack, btnGit;
-    public  Button btnQuickPlay, btnCustomPlay, btnScore, btnCredits, btnQuit;
     private Dialog menuCustomPlay, menuScore, menuCredits;
-    private TextView highestScoreTimed, highestScoreUntimed;
 
     private int countdownDialogTimer;
-
-    boolean isUp = false;
-    boolean isTimed = false;
 
 
     public MenuFragment() {
@@ -94,13 +86,10 @@ public class MenuFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        SharedPrefs.init(getContext());
         FragmentManager fragmentManager = getParentFragmentManager();
 
-        btnQuickPlay = requireView().findViewById(R.id.menubtn1);
-
+        Button btnQuickPlay = requireView().findViewById(R.id.menubtn1);
         btnQuickPlay.setOnClickListener(v -> {
-
             Bundle args = new Bundle();
             args.putBoolean(IS_UP, true);
             args.putBoolean(IS_TIMED,true);
@@ -109,7 +98,6 @@ public class MenuFragment extends Fragment {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainerView, GameFragment.class, args)
                     .setReorderingAllowed(true)
-//                    .addToBackStack("name") // name can be null
                     .commit();
         });
 
@@ -120,12 +108,12 @@ public class MenuFragment extends Fragment {
         menuCustomPlay.getWindow().setBackgroundDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.dialog_background));
         menuCustomPlay.setCancelable(false);
 
-        btnCustomPlay = requireView().findViewById(R.id.menubtn2);
-        btn15sPlay = menuCustomPlay.findViewById(R.id.secs15);
-        btn30sPlay = menuCustomPlay.findViewById(R.id.secs30);
-        btn60sPlay = menuCustomPlay.findViewById(R.id.secs60);
-        btnUntimedPlay = menuCustomPlay.findViewById(R.id.secsNull);
-        btnCustomBack = menuCustomPlay.findViewById(R.id.btnBack);
+        Button btnCustomPlay = requireView().findViewById(R.id.menubtn2);
+        Button btn15sPlay = menuCustomPlay.findViewById(R.id.secs15);
+        Button btn30sPlay = menuCustomPlay.findViewById(R.id.secs30);
+        Button btn60sPlay = menuCustomPlay.findViewById(R.id.secs60);
+        Button btnUntimedPlay = menuCustomPlay.findViewById(R.id.secsNull);
+        Button btnCustomBack = menuCustomPlay.findViewById(R.id.btnBack);
 
         btnCustomPlay.setOnClickListener(v -> menuCustomPlay.show()); //show custom game menu
 
@@ -140,7 +128,6 @@ public class MenuFragment extends Fragment {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainerView, GameFragment.class, args)
                     .setReorderingAllowed(true)
-//                    .addToBackStack("name") // name can be null
                     .commit();
         }); //choose 15 seconds of play
 
@@ -155,7 +142,6 @@ public class MenuFragment extends Fragment {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainerView, GameFragment.class, args)
                     .setReorderingAllowed(true)
-//                    .addToBackStack("name") // name can be null
                     .commit();
         }); //choose 30 seconds of play
 
@@ -170,14 +156,11 @@ public class MenuFragment extends Fragment {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainerView, GameFragment.class, args)
                     .setReorderingAllowed(true)
-//                    .addToBackStack("name") // name can be null
                     .commit();
         }); //choose 1 minute of play
 
         btnUntimedPlay.setOnClickListener(v -> {
             menuCustomPlay.dismiss();
-            isUp = true;
-            isTimed = false;
 
             Bundle args = new Bundle();
             args.putBoolean(IS_UP, true);
@@ -186,10 +169,8 @@ public class MenuFragment extends Fragment {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainerView, GameFragment.class, args)
                     .setReorderingAllowed(true)
-//                    .addToBackStack("name") // name can be null
                     .commit();
         }); //choose untimed play
-
 
         btnCustomBack.setOnClickListener(v -> menuCustomPlay.dismiss()); //close custom game menu
 
@@ -200,9 +181,9 @@ public class MenuFragment extends Fragment {
         menuScore.getWindow().setBackgroundDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.dialog_background));
         menuScore.setCancelable(false);
 
-        btnScore = requireView().findViewById(R.id.menubtn3);
-        highestScoreTimed = menuScore.findViewById(R.id.highestScoreTimed);
-        highestScoreUntimed = menuScore.findViewById(R.id.highestScoreUntimed);
+        Button btnScore = requireView().findViewById(R.id.menubtn3);
+        TextView highestScoreTimed = menuScore.findViewById(R.id.highestScoreTimed);
+        TextView highestScoreUntimed = menuScore.findViewById(R.id.highestScoreUntimed);
         btnCustomBack = menuScore.findViewById(R.id.btnBack);
 
         highestScoreTimed.setText(MainActivity.savedTimedScore);
@@ -218,8 +199,8 @@ public class MenuFragment extends Fragment {
         menuCredits.getWindow().setBackgroundDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.dialog_background));
         menuCredits.setCancelable(false);
 
-        btnCredits = requireView().findViewById(R.id.menubtn4);
-        btnGit = menuCredits.findViewById(R.id.btnGit);
+        Button btnCredits = requireView().findViewById(R.id.menubtn4);
+        Button btnGit = menuCredits.findViewById(R.id.btnGit);
         btnCustomBack = menuCredits.findViewById(R.id.btnBack);
 
         btnCredits.setOnClickListener(v -> menuCredits.show()); //show credits
@@ -233,8 +214,8 @@ public class MenuFragment extends Fragment {
         btnCustomBack.setOnClickListener(v -> menuCredits.dismiss()); //close credits
 
 
-        btnQuit = requireView().findViewById(R.id.menubtn5);
+        Button btnQuit = requireView().findViewById(R.id.menubtn5);
         btnQuit.setOnClickListener(v -> requireActivity().finish());
 
-    }
+    } //onViewCreated
 }
