@@ -60,6 +60,7 @@ public class GameFragment extends Fragment {
     boolean isUp;
     boolean isTimed;
 
+    private int remainingTimer;
 
     public GameFragment() {
         // Required empty public constructor
@@ -121,6 +122,8 @@ public class GameFragment extends Fragment {
         buttons[8] = requireView().findViewById(R.id.hit9);
         buttons[9] = requireView().findViewById(R.id.hit10);
 
+        remainingTimer = getTimer;
+
         //-- code for upper-right hand timer visibility
         if (isTimed) {
             timerView.setEnabled(true);
@@ -138,7 +141,7 @@ public class GameFragment extends Fragment {
         countdown.setContentView(R.layout.countdown);
         countdown.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         countdown.setCancelable(true); //closes dialog
-        timerView.setText(getTimerText());
+
         countdown.show();
         countdown.setOnCancelListener(dialog -> {
             if (isTimed) {
@@ -183,6 +186,24 @@ public class GameFragment extends Fragment {
         });
     } //onViewCreated
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("remainder", getSeconds());
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState == null) {
+            putTimer = getTimer;
+        }
+        else {
+            putTimer = savedInstanceState.getInt("remainder");
+        }
+        timerView.setText(getTimerText());
+    }
+
     //code for the countdown timer located at the upper right hand corner of the game
     public void TimerDigital() {
         if (isUp) {
@@ -220,6 +241,12 @@ public class GameFragment extends Fragment {
         return String.format(Locale.getDefault(),"%02d",minutes) + ":" + String.format(Locale.getDefault(),"%02d",seconds);
     }
 
+
+    private int getSeconds() {
+        String getTimerText = timerView.getText().toString();
+        int getIndex = getTimerText.indexOf(":");
+        return Integer.parseInt(getTimerText.substring(getIndex+1));
+    }
 
     public void ScoreAnimation() {
         final Handler handler = new Handler();

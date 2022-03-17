@@ -1,22 +1,17 @@
 package com.milesilac.whackamolu;
 
-import android.app.Dialog;
-import android.content.Intent;
-import android.net.Uri;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 
 
 /**
@@ -38,10 +33,6 @@ public class MenuFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private Dialog menuCustomPlay, menuScore, menuCredits;
-
-    private int countdownDialogTimer;
 
 
     public MenuFragment() {
@@ -101,118 +92,14 @@ public class MenuFragment extends Fragment {
                     .commit();
         });
 
-        //menuCustomPlay Dialog
-        menuCustomPlay = new Dialog(getContext());
-        menuCustomPlay.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        menuCustomPlay.setContentView(R.layout.custom_dialog);
-        menuCustomPlay.getWindow().setBackgroundDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.dialog_background));
-        menuCustomPlay.setCancelable(false);
-
         Button btnCustomPlay = requireView().findViewById(R.id.menubtn2);
-        Button btn15sPlay = menuCustomPlay.findViewById(R.id.secs15);
-        Button btn30sPlay = menuCustomPlay.findViewById(R.id.secs30);
-        Button btn60sPlay = menuCustomPlay.findViewById(R.id.secs60);
-        Button btnUntimedPlay = menuCustomPlay.findViewById(R.id.secsNull);
-        Button btnCustomBack = menuCustomPlay.findViewById(R.id.btnBack);
-
-        btnCustomPlay.setOnClickListener(v -> menuCustomPlay.show()); //show custom game menu
-
-        btn15sPlay.setOnClickListener(v -> {
-            menuCustomPlay.dismiss();
-
-            Bundle args = new Bundle();
-            args.putBoolean(IS_UP, true);
-            args.putBoolean(IS_TIMED,true);
-            args.putInt(SET_TIMER,15);
-
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainerView, GameFragment.class, args)
-                    .setReorderingAllowed(true)
-                    .commit();
-        }); //choose 15 seconds of play
-
-        btn30sPlay.setOnClickListener(v -> {
-            menuCustomPlay.dismiss();
-
-            Bundle args = new Bundle();
-            args.putBoolean(IS_UP, true);
-            args.putBoolean(IS_TIMED,true);
-            args.putInt(SET_TIMER,30);
-
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainerView, GameFragment.class, args)
-                    .setReorderingAllowed(true)
-                    .commit();
-        }); //choose 30 seconds of play
-
-        btn60sPlay.setOnClickListener(v -> {
-            menuCustomPlay.dismiss();
-
-            Bundle args = new Bundle();
-            args.putBoolean(IS_UP, true);
-            args.putBoolean(IS_TIMED,true);
-            args.putInt(SET_TIMER,60);
-
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainerView, GameFragment.class, args)
-                    .setReorderingAllowed(true)
-                    .commit();
-        }); //choose 1 minute of play
-
-        btnUntimedPlay.setOnClickListener(v -> {
-            menuCustomPlay.dismiss();
-
-            Bundle args = new Bundle();
-            args.putBoolean(IS_UP, true);
-            args.putBoolean(IS_TIMED,false);
-
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainerView, GameFragment.class, args)
-                    .setReorderingAllowed(true)
-                    .commit();
-        }); //choose untimed play
-
-        btnCustomBack.setOnClickListener(v -> menuCustomPlay.dismiss()); //close custom game menu
-
-        //menuScore Dialog
-        menuScore = new Dialog(getContext());
-        menuScore.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        menuScore.setContentView(R.layout.scoreboard_dialog);
-        menuScore.getWindow().setBackgroundDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.dialog_background));
-        menuScore.setCancelable(false);
+        btnCustomPlay.setOnClickListener(v -> new MenuCustomPlayDialogFragment().show(getChildFragmentManager(),MenuCustomPlayDialogFragment.TAG));
 
         Button btnScore = requireView().findViewById(R.id.menubtn3);
-        TextView highestScoreTimed = menuScore.findViewById(R.id.highestScoreTimed);
-        TextView highestScoreUntimed = menuScore.findViewById(R.id.highestScoreUntimed);
-        btnCustomBack = menuScore.findViewById(R.id.btnBack);
-
-        highestScoreTimed.setText(MainActivity.savedTimedScore);
-        highestScoreUntimed.setText(MainActivity.savedUntimedScore);
-
-        btnScore.setOnClickListener(v -> menuScore.show()); //show scoreboard
-        btnCustomBack.setOnClickListener(v -> menuScore.dismiss()); //close scoreboard
-
-        //menuCredits Dialog
-        menuCredits = new Dialog(getContext());
-        menuCredits.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        menuCredits.setContentView(R.layout.credits_dialog);
-        menuCredits.getWindow().setBackgroundDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.dialog_background));
-        menuCredits.setCancelable(false);
+        btnScore.setOnClickListener(v -> new MenuScoreDialogFragment().show(getChildFragmentManager(),MenuScoreDialogFragment.TAG));
 
         Button btnCredits = requireView().findViewById(R.id.menubtn4);
-        Button btnGit = menuCredits.findViewById(R.id.btnGit);
-        btnCustomBack = menuCredits.findViewById(R.id.btnBack);
-
-        btnCredits.setOnClickListener(v -> menuCredits.show()); //show credits
-
-        //view Github in local browser
-        btnGit.setOnClickListener(v -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/MilesIlac/whack-a-molu/tree/basic"));
-            startActivity(browserIntent);
-        });
-
-        btnCustomBack.setOnClickListener(v -> menuCredits.dismiss()); //close credits
-
+        btnCredits.setOnClickListener(v -> new MenuCreditsDialogFragment().show(getChildFragmentManager(),MenuCreditsDialogFragment.TAG));
 
         Button btnQuit = requireView().findViewById(R.id.menubtn5);
         btnQuit.setOnClickListener(v -> requireActivity().finish());
