@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainerView, MenuFragment.class, null)
+                    .addToBackStack(null)
                     .setReorderingAllowed(true)
                     .commit();
         }

@@ -1,5 +1,6 @@
 package com.milesilac.whackamolu;
 
+import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -59,8 +60,6 @@ public class GameFragment extends Fragment {
 
     boolean isUp;
     boolean isTimed;
-
-    private int remainingTimer;
 
     public GameFragment() {
         // Required empty public constructor
@@ -122,36 +121,49 @@ public class GameFragment extends Fragment {
         buttons[8] = requireView().findViewById(R.id.hit9);
         buttons[9] = requireView().findViewById(R.id.hit10);
 
-        remainingTimer = getTimer;
+
+        if (savedInstanceState == null) {
+            putTimer = getTimer;
+        }
+        else {
+            putTimer = savedInstanceState.getInt("remainder");
+            score = savedInstanceState.getInt("score");
+            scoreboard.setText(String.valueOf(score));
+        }
+
+
+        timerView.setText(getTimerText());
+
+
+
 
         //-- code for upper-right hand timer visibility
         if (isTimed) {
             timerView.setEnabled(true);
             timerView.setVisibility(View.VISIBLE);
-
-            // manual set of timer
-            putTimer = getTimer;
-        } else {
+        }
+        else {
             timerView.setEnabled(false);
             timerView.setVisibility(View.GONE);
         }
 
-        Dialog countdown = new Dialog(getContext());
-        countdown.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        countdown.setContentView(R.layout.countdown);
-        countdown.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        countdown.setCancelable(true); //closes dialog
+//        Dialog countdown = new Dialog(getContext());
+//        countdown.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        countdown.setContentView(R.layout.countdown);
+//        countdown.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//        countdown.setCancelable(true); //closes dialog
+//
+//        countdown.show();
+//        countdown.setOnCancelListener(dialog -> {
+//            if (isTimed) {
+//                TimerDigital();
+//                setTheMoleTimed();
+//            } else {
+//                setTheMoleUntimed();
+//            }
+//        }); // starts game on dialog close
 
-        countdown.show();
-        countdown.setOnCancelListener(dialog -> {
-            if (isTimed) {
-                TimerDigital();
-                setTheMoleTimed();
-            } else {
-                setTheMoleUntimed();
-            }
-        }); // starts game on dialog close
-
+        moleClick();
 
         //-- show scoreResult after play
         scoreResultDialog = new Dialog(getContext());
@@ -190,18 +202,58 @@ public class GameFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putInt("remainder", getSeconds());
+        savedInstanceState.putInt("score",score);
+    }
+
+//    @Override
+//    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+//        super.onViewStateRestored(savedInstanceState);
+////        if (savedInstanceState == null) {
+////            putTimer = getTimer;
+////        }
+////        else {
+////            putTimer = savedInstanceState.getInt("remainder");
+////            score = savedInstanceState.getInt("score");
+////            scoreboard.setText(String.valueOf(score));
+////        }
+////
+////        timerView.setText(getTimerText());
+//    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isUp = false;
     }
 
     @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState == null) {
-            putTimer = getTimer;
-        }
-        else {
-            putTimer = savedInstanceState.getInt("remainder");
-        }
-        timerView.setText(getTimerText());
+    public void onResume() {
+        super.onResume();
+
+        isUp = true;
+
+        Dialog countdown = new Dialog(getContext());
+        countdown.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        countdown.setContentView(R.layout.countdown);
+        countdown.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        countdown.setCancelable(true); //closes dialog
+
+        countdown.show();
+        countdown.setOnCancelListener(dialog -> {
+            if (isTimed) {
+                TimerDigital();
+                setTheMoleTimed();
+            } else {
+                setTheMoleUntimed();
+            }
+        }); // starts game on dialog close
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        isUp = false;
     }
 
     //code for the countdown timer located at the upper right hand corner of the game
@@ -249,28 +301,18 @@ public class GameFragment extends Fragment {
     }
 
     public void ScoreAnimation() {
-        final Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            // Do something after 0.1s = 100ms
-
-            if (totalScore == score) {
+        ValueAnimator scoreAnimator = new ValueAnimator();
+        scoreAnimator.setIntValues(0,score);
+        scoreAnimator.addUpdateListener(animation -> {
+            totalScoreResult.setText(String.valueOf(animation.getAnimatedValue()));
+            if (totalScoreResult.getText().equals(String.valueOf(score))) {
                 btnMainMenu.setEnabled(true);
             }
-            else {
-                if (score >= 0) {
-                    totalScore++;
-                }
-                else {
-                    totalScore--;
-                }
-                totalScoreResult.setText(String.valueOf(totalScore));
-                ScoreAnimation();
-            }
+        });
+        scoreAnimator.setDuration(500);
+        scoreAnimator.start();
 
-        }, 100);
     }
-
-
 
     //hit method for each button
     private void setTheMoleTimed() {
@@ -280,40 +322,16 @@ public class GameFragment extends Fragment {
             final Handler handler = new Handler();
             handler.postDelayed(() -> {
                 // Do something every 1.5s = 1500ms
-                int nextMole = moleGen.nextInt(9) + 1;
+                int nextMole = moleGen.nextInt(9);
 
                 //btn1.setTextColor(0xFF76FF03);
                 buttons[nextMole].setTextColor(0xFFFFD54F);
                 buttons[nextMole].setText("(✦‿✦)");
 
-                for (int i=0;i<10;i++) {
-                    if (i == nextMole) {
-                        buttons[i].setOnClickListener(v ->  {
-                            MediaPlayer playBonk = MediaPlayer.create(getContext(),R.raw.bonk);
-                            buttons[nextMole].setBackgroundColor(0xFFFF6F00);
-                            buttons[nextMole].setText("(>‿<)");
-                            AddScore();
-                            playBonk.start();
-                        });
-                    }
-                    else {
-                        int notMole = i;
-                        System.out.println(notMole);
-                        buttons[i].setOnClickListener(v -> {
-                            MediaPlayer playError = MediaPlayer.create(getContext(),R.raw.errorbonk);
-                            buttons[notMole].setBackgroundColor(0xFFB71C1C);
-                            buttons[notMole].setText("(#_#)");
-                            MinusScore();
-                            playError.start();
-                        });
-                    }
-                }
-
                 setTheMoleTimed();
-                NoMoleState(nextDelay);
+                NoMoleState();
             }, nextDelay);
         }
-
     }
 
     private void setTheMoleUntimed() {
@@ -323,58 +341,74 @@ public class GameFragment extends Fragment {
             final Handler handler = new Handler();
             handler.postDelayed(() -> {
                 // Do something every 1.5s = 1500ms
-                int nextMole = moleGen.nextInt(9) + 1;
+                int nextMole = moleGen.nextInt(9);
 
                 //btn1.setTextColor(0xFF76FF03);
                 buttons[nextMole].setTextColor(0xFFFFD54F);
                 buttons[nextMole].setText("(✦‿✦)");
 
-                for (int i=0;i<10;i++) {
-                    if (i == nextMole) {
-                        buttons[i].setOnClickListener(v ->  {
-                            MediaPlayer playBonk = MediaPlayer.create(getContext(),R.raw.bonk);
-                            buttons[nextMole].setBackgroundColor(0xFFFF6F00);
-                            buttons[nextMole].setText("(>‿<)");
-                            AddScore();
-                            playBonk.start();
-                        });
+                setTheMoleUntimed();
+                NoMoleState();
+            }, nextDelay);
+        }
+    }
+
+
+    public void moleClick() {
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            for (int i=0;i<10;i++) {
+                int checkMole = i;
+                buttons[i].setOnClickListener(v -> {
+                    if (buttons[checkMole].getText().equals("(✦‿✦)")) {
+                        MediaPlayer playBonk = MediaPlayer.create(getContext(),R.raw.bonk);
+                        buttons[checkMole].setBackgroundColor(0xFFFF6F00);
+                        buttons[checkMole].setText("(>‿<)");
+                        AddScore();
+                        playBonk.start();
                     }
                     else {
-                        int notMole = i;
-                        System.out.println(notMole);
-                        buttons[i].setOnClickListener(v -> {
+                        if (isTimed) {
                             MediaPlayer playError = MediaPlayer.create(getContext(),R.raw.errorbonk);
-                            buttons[notMole].setBackgroundColor(0xFFB71C1C);
-                            buttons[notMole].setText("(#_#)");
+                            buttons[checkMole].setBackgroundColor(0xFFB71C1C);
+                            buttons[checkMole].setText("(#_#)");
+                            MinusScore();
+                            playError.start();
+                        }
+                        else {
+                            MediaPlayer playError = MediaPlayer.create(getContext(),R.raw.errorbonk);
+                            buttons[checkMole].setBackgroundColor(0xFFB71C1C);
+                            buttons[checkMole].setText("(#_#)");
                             playError.start();
                             scoreResultDialog.show();
                             ScoreAnimation();
                             isUp = false;
-                        });
+                        }
                     }
-                }
+                });
+            }
 
-
-                setTheMoleUntimed();
-                NoMoleState(nextDelay);
-            }, nextDelay);
-        }
+        },0);
 
     }
 
-    public void NoMoleState(int delay) {
-        System.out.println("inputted delay at NoMoleState: " + delay);
+
+    public void NoMoleState() {
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
-            // Do something after 1.45s = 1450ms
-
             for (int i=0;i<10;i++) {
-                buttons[i].setBackgroundColor(0xFF311B92);
-                buttons[i].setTextColor(Color.WHITE);
-                buttons[i].setText("(O‿O)");
-            }
+                if (!buttons[i].getText().equals("(O‿O)")) {
+                    int isClicked = i;
+                    final Handler handler1 = new Handler();
+                    handler1.postDelayed(() -> {
+                        buttons[isClicked].setBackgroundColor(0xFF311B92);
+                        buttons[isClicked].setTextColor(Color.WHITE);
+                        buttons[isClicked].setText("(O‿O)");
+                    },1000);
+                }
+            } //for loop
 
-        }, delay-50);
+        }, 0);
     }
 
 
