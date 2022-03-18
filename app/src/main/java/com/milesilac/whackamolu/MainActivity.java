@@ -22,10 +22,10 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             fragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainerView, MenuFragment.class, null)
-                    .addToBackStack(null)
                     .setReorderingAllowed(true)
                     .commit();
         }
+
 
         fragmentManager.addFragmentOnAttachListener((fragmentManager1, fragment) -> {
             savedTimedScore = SharedPrefs.read(SharedPrefs.HIGHSCORETIMED, "0");//read string in shared preference.

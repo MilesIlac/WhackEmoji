@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -43,8 +44,6 @@ public class GameFragment extends Fragment {
     private String mParam2;
 
     private int score;
-    private int totalScore;
-    private int countdownDialogTimer;
     private int getTimer;
     private int putTimer;
     private int highScoreCheck;
@@ -60,6 +59,7 @@ public class GameFragment extends Fragment {
 
     boolean isUp;
     boolean isTimed;
+
 
     public GameFragment() {
         // Required empty public constructor
@@ -89,7 +89,6 @@ public class GameFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-            isUp = getArguments().getBoolean(IS_UP);
             isTimed = getArguments().getBoolean(IS_TIMED);
             getTimer = getArguments().getInt(SET_TIMER);
         }
@@ -122,19 +121,8 @@ public class GameFragment extends Fragment {
         buttons[9] = requireView().findViewById(R.id.hit10);
 
 
-        if (savedInstanceState == null) {
-            putTimer = getTimer;
-        }
-        else {
-            putTimer = savedInstanceState.getInt("remainder");
-            score = savedInstanceState.getInt("score");
-            scoreboard.setText(String.valueOf(score));
-        }
-
-
+        isUp = true;
         timerView.setText(getTimerText());
-
-
 
 
         //-- code for upper-right hand timer visibility
@@ -146,22 +134,6 @@ public class GameFragment extends Fragment {
             timerView.setEnabled(false);
             timerView.setVisibility(View.GONE);
         }
-
-//        Dialog countdown = new Dialog(getContext());
-//        countdown.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        countdown.setContentView(R.layout.countdown);
-//        countdown.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-//        countdown.setCancelable(true); //closes dialog
-//
-//        countdown.show();
-//        countdown.setOnCancelListener(dialog -> {
-//            if (isTimed) {
-//                TimerDigital();
-//                setTheMoleTimed();
-//            } else {
-//                setTheMoleUntimed();
-//            }
-//        }); // starts game on dialog close
 
         moleClick();
 
@@ -180,11 +152,11 @@ public class GameFragment extends Fragment {
         btnMainMenu.setOnClickListener(v1 -> {
             if (isTimed) {
                 highScoreCheck = Integer.parseInt(SharedPrefs.read(SharedPrefs.HIGHSCORETIMED, "0"));
-                putScoreTimed = Math.max(highScoreCheck, totalScore);
+                putScoreTimed = Math.max(highScoreCheck, score);
                 SharedPrefs.write(SharedPrefs.HIGHSCORETIMED, String.valueOf(putScoreTimed));//save string in shared preference.
             } else {
                 highScoreCheck = Integer.parseInt(SharedPrefs.read(SharedPrefs.HIGHSCOREUNTIMED, "0"));
-                putScoreUntimed = Math.max(highScoreCheck, totalScore);
+                putScoreUntimed = Math.max(highScoreCheck, score);
                 SharedPrefs.write(SharedPrefs.HIGHSCOREUNTIMED, String.valueOf(putScoreUntimed));//save string in shared preference.
             }
 
@@ -205,21 +177,21 @@ public class GameFragment extends Fragment {
         savedInstanceState.putInt("score",score);
     }
 
-//    @Override
-//    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-//        super.onViewStateRestored(savedInstanceState);
-////        if (savedInstanceState == null) {
-////            putTimer = getTimer;
-////        }
-////        else {
-////            putTimer = savedInstanceState.getInt("remainder");
-////            score = savedInstanceState.getInt("score");
-////            scoreboard.setText(String.valueOf(score));
-////        }
-////
-////        timerView.setText(getTimerText());
-//    }
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
 
+        if (savedInstanceState == null) {
+            putTimer = getTimer;
+        }
+        else {
+            putTimer = savedInstanceState.getInt("remainder");
+            score = savedInstanceState.getInt("score");
+            scoreboard.setText(String.valueOf(score));
+        }
+
+        timerView.setText(getTimerText());
+    }
 
     @Override
     public void onPause() {
@@ -231,22 +203,43 @@ public class GameFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        isUp = true;
-
         Dialog countdown = new Dialog(getContext());
         countdown.requestWindowFeature(Window.FEATURE_NO_TITLE);
         countdown.setContentView(R.layout.countdown);
         countdown.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         countdown.setCancelable(true); //closes dialog
-
         countdown.show();
-        countdown.setOnCancelListener(dialog -> {
-            if (isTimed) {
-                TimerDigital();
-                setTheMoleTimed();
-            } else {
-                setTheMoleUntimed();
-            }
+
+        countdown.setOnDismissListener(dialog -> {
+
+            Dialog countdownAnimationDialog = new Dialog(getContext());
+            countdownAnimationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            countdownAnimationDialog.setContentView(R.layout.countdown);
+            countdownAnimationDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            countdownAnimationDialog.setCancelable(false);
+            countdownAnimationDialog.setCanceledOnTouchOutside(false);
+            countdownAnimationDialog.show();
+
+            countdownDialog = countdownAnimationDialog.findViewById(R.id.readyCountdown);
+
+            ValueAnimator scoreAnimator = new ValueAnimator();
+            scoreAnimator.setIntValues(3,0);
+            scoreAnimator.addUpdateListener(animation -> {
+                countdownDialog.setText(String.valueOf(animation.getAnimatedValue()));
+                if (countdownDialog.getText().toString().equals("0")) {
+                    countdownAnimationDialog.dismiss();
+                    isUp = true;
+                    if (isTimed) {
+                        TimerDigital();
+                        setTheMoleTimed();
+                    } else {
+                        setTheMoleUntimed();
+                    }
+                }
+            });
+            scoreAnimator.setDuration(3300);
+            scoreAnimator.start();
+
         }); // starts game on dialog close
     }
 
@@ -255,6 +248,7 @@ public class GameFragment extends Fragment {
         super.onDestroy();
         isUp = false;
     }
+
 
     //code for the countdown timer located at the upper right hand corner of the game
     public void TimerDigital() {
@@ -292,27 +286,12 @@ public class GameFragment extends Fragment {
     private String formatTime(int seconds, int minutes) {
         return String.format(Locale.getDefault(),"%02d",minutes) + ":" + String.format(Locale.getDefault(),"%02d",seconds);
     }
-
-
     private int getSeconds() {
         String getTimerText = timerView.getText().toString();
         int getIndex = getTimerText.indexOf(":");
         return Integer.parseInt(getTimerText.substring(getIndex+1));
     }
 
-    public void ScoreAnimation() {
-        ValueAnimator scoreAnimator = new ValueAnimator();
-        scoreAnimator.setIntValues(0,score);
-        scoreAnimator.addUpdateListener(animation -> {
-            totalScoreResult.setText(String.valueOf(animation.getAnimatedValue()));
-            if (totalScoreResult.getText().equals(String.valueOf(score))) {
-                btnMainMenu.setEnabled(true);
-            }
-        });
-        scoreAnimator.setDuration(500);
-        scoreAnimator.start();
-
-    }
 
     //hit method for each button
     private void setTheMoleTimed() {
@@ -331,6 +310,9 @@ public class GameFragment extends Fragment {
                 setTheMoleTimed();
                 NoMoleState();
             }, nextDelay);
+        }
+        else {
+            instantMoleClear();
         }
     }
 
@@ -351,6 +333,19 @@ public class GameFragment extends Fragment {
                 NoMoleState();
             }, nextDelay);
         }
+        else {
+            instantMoleClear();
+        }
+    }
+
+    public void instantMoleClear() {
+        for (int i=0;i<10;i++) {
+            if (!buttons[i].getText().equals("(O‿O)")) {
+                buttons[i].setBackgroundColor(0xFF311B92);
+                buttons[i].setTextColor(Color.WHITE);
+                buttons[i].setText("(O‿O)");
+            }
+        } //for loop
     }
 
 
@@ -407,8 +402,22 @@ public class GameFragment extends Fragment {
                     },1000);
                 }
             } //for loop
-
         }, 0);
+    }
+
+
+    public void ScoreAnimation() {
+        ValueAnimator scoreAnimator = new ValueAnimator();
+        scoreAnimator.setIntValues(0,score);
+        scoreAnimator.addUpdateListener(animation -> {
+            totalScoreResult.setText(String.valueOf(animation.getAnimatedValue()));
+            if (totalScoreResult.getText().equals(String.valueOf(score))) {
+                btnMainMenu.setEnabled(true);
+            }
+        });
+        scoreAnimator.setDuration(500);
+        scoreAnimator.start();
+
     }
 
 
