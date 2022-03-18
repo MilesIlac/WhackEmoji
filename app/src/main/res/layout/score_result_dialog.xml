@@ -33,17 +33,12 @@
                     android:background="#512DA8"
                     android:padding="10dp">
 
-                    <ImageView
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:background="@mipmap/ic_launcher_round"
-                        android:layout_gravity="center_horizontal"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="SCORE"
+                        android:text="@string/scoreDialogTitle"
                         android:layout_gravity="center_horizontal"
                         android:textColor="@color/white"
                         android:textSize="20sp"
@@ -53,8 +48,8 @@
                         android:id="@+id/totalScoreResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:text="0"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/currentGameScore"
                         android:layout_gravity="center_horizontal"
                         android:textColor="@color/white"
                         android:textSize="40sp"/>
@@ -66,7 +61,7 @@
                         android:backgroundTint="#311B92"
                         android:layout_gravity="center_horizontal"
                         android:id="@+id/btnMainMenu"
-                        android:text="MAIN MENU"
+                        android:text="@string/btnMainMenu"
                         android:enabled="false"/>
 
                 </LinearLayout>

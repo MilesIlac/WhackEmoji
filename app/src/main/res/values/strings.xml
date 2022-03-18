@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">WhackAMolu</string>
+    <!-- Game Title -->
+    <string name="title">Whack-A-Molu</string>
+    <!-- Activity Menu Buttons -->
+    <string name="btnQuickPlay">Quick Play</string>
+    <string name="btnCustom">Custom</string>
+    <string name="btnScoreboard">Scoreboard</string>
+    <string name="btnCredits">Credits</string>
+    <string name="btnQuit">Quit</string>
+    <!-- Game Timer Strings -->
+    <string name="timerDigits">00:00</string>
+    <!-- Game Score -->
+    <string name="currentGameScore">0</string>
+    <!-- In-game Button Strings -->
+    <string name="defaultState">(O‿O)</string>
+    <!-- Countdown XML Strings -->
+    <string name="countdownReady">Ready?</string>
+    <!-- Credits Dialog Strings -->
+    <string name="creditsTitle">CREDITS</string>
+    <string name="btnGithub">GITHUB</string>
+    <!-- Custom Game Dialog Strings -->
+    <string name="customGTitle">CUSTOM GAME SETUP</string>
+    <string name="setTimer">Set Timer</string>
+    <string name="btn15Secs">15 seconds</string>
+    <string name="btn30Secs">30 seconds</string>
+    <string name="btn60Secs">1 minute</string>
+    <string name="btnUntimed">UNTIMED</string>
+    <!-- Score Result Dialog Strings -->
+    <string name="scoreDialogTitle">SCORE</string>
+    <string name="btnMainMenu">MAIN MENU</string>
+    <!-- ScoreBoard Strings -->
+    <string name="scoreBoardTitle">HIGHEST SCORE</string>
+    <string name="scoreTimed">Timed</string>
+    <string name="scoreUntimed">Untimed</string>
+    <!-- Back Button String -->
+    <string name="btnBack">BACK</string>
 </resources>

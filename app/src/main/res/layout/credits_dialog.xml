@@ -21,17 +21,11 @@
             android:background="#512DA8"
             android:padding="10dp">
 
-            <ImageView
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:background="@mipmap/ic_launcher_round"
-                android:layout_gravity="center_horizontal"/>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="CREDITS"
+                android:text="@string/creditsTitle"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -44,7 +38,7 @@
                 android:layout_marginTop="30dp"
                 android:text="Thanks to the following:"
                 android:layout_gravity="center_horizontal"
-                android:textSize="17sp"
+                android:textSize="20sp"
                 android:textColor="@color/white"/>
 
             <TextView
@@ -78,7 +72,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:id="@+id/btnGit"
-                android:text="GITHUB"/>
+                android:text="@string/btnGithub"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -87,7 +81,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:id="@+id/btnBack"
-                android:text="BACK"
+                android:text="@string/btnBack"
                 />
 
         </LinearLayout>

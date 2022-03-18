@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/menuLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#512DA8"
-    tools:context=".MenuActivity">
+    tools:context=".MenuFragment">
 
-
+    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
-        android:layout_width="380dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:visibility="visible">
 
         <TextView
@@ -20,11 +18,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Whack-A-Molu"
-            android:textSize="50sp"
+            android:text="@string/title"
             android:textAlignment="center"
             android:textColor="@color/white"
-            app:autoSizeTextType="uniform" />
+            android:textSize="45sp" />
 
         <Button
             android:id="@+id/menubtn1"
@@ -34,7 +31,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:backgroundTint="#311B92"
-            android:text="Quick Play"
+            android:text="@string/btnQuickPlay"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp" />
@@ -46,7 +43,7 @@
             android:layout_below="@+id/gameTitle"
             android:layout_centerHorizontal="true"
             android:backgroundTint="#311B92"
-            android:text="Custom"
+            android:text="@string/btnCustom"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp" />
@@ -58,10 +55,10 @@
             android:layout_below="@+id/menubtn2"
             android:layout_centerHorizontal="true"
             android:backgroundTint="#311B92"
-            android:text="Scoreboard"
-            android:textSize="15sp"
+            android:text="@string/btnScoreboard"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/menubtn4"
@@ -70,7 +67,7 @@
             android:layout_below="@+id/menubtn3"
             android:layout_centerHorizontal="true"
             android:backgroundTint="#311B92"
-            android:text="Credits"
+            android:text="@string/btnCredits"
             android:textSize="15sp"
             android:textAllCaps="false"
             android:textColor="@color/white" />
@@ -82,7 +79,7 @@
             android:layout_below="@+id/menubtn4"
             android:layout_centerHorizontal="true"
             android:backgroundTint="#311B92"
-            android:text="Quit"
+            android:text="@string/btnQuit"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp" />
@@ -90,5 +87,4 @@
 
     </RelativeLayout>
 
-
-</RelativeLayout>
+</FrameLayout>
