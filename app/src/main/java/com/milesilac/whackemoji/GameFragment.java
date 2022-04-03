@@ -1,11 +1,10 @@
-package com.milesilac.whackamolu;
+package com.milesilac.whackemoji;
 
 import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,7 +34,6 @@ public class GameFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private static final String IS_UP = "isUp";
     private static final String IS_TIMED = "isTimed";
     private static final String SET_TIMER = "setTimer";
 
@@ -120,10 +118,8 @@ public class GameFragment extends Fragment {
         buttons[8] = requireView().findViewById(R.id.hit9);
         buttons[9] = requireView().findViewById(R.id.hit10);
 
-
         isUp = true;
         timerView.setText(getTimerText());
-
 
         //-- code for upper-right hand timer visibility
         if (isTimed) {
@@ -432,4 +428,4 @@ public class GameFragment extends Fragment {
     }
 
 
-}
+} //GameFragment

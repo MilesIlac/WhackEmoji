@@ -1,4 +1,4 @@
-package com.milesilac.whackamolu;
+package com.milesilac.whackemoji;
 
 import org.junit.Test;
 

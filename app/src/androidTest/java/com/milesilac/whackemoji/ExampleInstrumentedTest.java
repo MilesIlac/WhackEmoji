@@ -1,4 +1,4 @@
-package com.milesilac.whackamolu;
+package com.milesilac.whackemoji;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.testarossa.whackamolu", appContext.getPackageName());
+        assertEquals("com.testarossa.whackemoji", appContext.getPackageName());
     }
 }

@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">WhackAMolu</string>
+    <string name="app_name">WhackEmoji</string>
     <!-- Game Title -->
-    <string name="title">Whack-A-Molu</string>
+    <string name="title">WhackEmoji</string>
     <!-- Activity Menu Buttons -->
     <string name="btnQuickPlay">Quick Play</string>
     <string name="btnCustom">Custom</string>
