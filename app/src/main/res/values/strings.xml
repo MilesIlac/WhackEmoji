@@ -23,8 +23,11 @@
     <string name="customGTitle">CUSTOM GAME SETUP</string>
     <string name="setTimer">Set Timer</string>
     <string name="btn15Secs">15 seconds</string>
+    <string name="btn15SecsShort">15s</string>
     <string name="btn30Secs">30 seconds</string>
+    <string name="btn30SecsShort">30s</string>
     <string name="btn60Secs">1 minute</string>
+    <string name="btn60SecsShort">60s</string>
     <string name="btnUntimed">UNTIMED</string>
     <!-- Score Result Dialog Strings -->
     <string name="scoreDialogTitle">SCORE</string>

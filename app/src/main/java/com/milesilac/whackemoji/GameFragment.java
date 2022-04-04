@@ -105,6 +105,7 @@ public class GameFragment extends Fragment {
 
         FragmentManager fragmentManager = getParentFragmentManager();
 
+
         scoreboard = requireView().findViewById(R.id.gameScore);
         timerView = requireView().findViewById(R.id.timerView);
         buttons[0] = requireView().findViewById(R.id.hit1);
@@ -353,6 +354,10 @@ public class GameFragment extends Fragment {
                 buttons[i].setOnClickListener(v -> {
                     if (buttons[checkMole].getText().equals("(✦‿✦)")) {
                         MediaPlayer playBonk = MediaPlayer.create(getContext(),R.raw.bonk);
+                        if (playBonk.isPlaying()) {
+                            playBonk.reset();
+                            playBonk = MediaPlayer.create(getContext(), R.raw.bonk);
+                        }
                         buttons[checkMole].setBackgroundColor(0xFFFF6F00);
                         buttons[checkMole].setText("(>‿<)");
                         AddScore();
@@ -361,6 +366,10 @@ public class GameFragment extends Fragment {
                     else {
                         if (isTimed) {
                             MediaPlayer playError = MediaPlayer.create(getContext(),R.raw.errorbonk);
+                            if (playError.isPlaying()) {
+                                playError.reset();
+                                playError = MediaPlayer.create(getContext(), R.raw.errorbonk);
+                            }
                             buttons[checkMole].setBackgroundColor(0xFFB71C1C);
                             buttons[checkMole].setText("(#_#)");
                             MinusScore();
