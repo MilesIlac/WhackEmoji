@@ -27,19 +27,10 @@ import java.util.Random;
  * Use the {@link GameFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GameFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class GameFragment extends Fragment implements GameContract.GameFragment {
 
     private static final String IS_TIMED = "isTimed";
     private static final String SET_TIMER = "setTimer";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private int score;
     private int getTimer;
@@ -55,9 +46,10 @@ public class GameFragment extends Fragment {
     private Dialog scoreResultDialog;
     private final Button[] buttons = new Button[10];
 
-    boolean isUp;
-    boolean isTimed;
+    private boolean isUp;
+    private boolean isTimed;
 
+    GameContract.DigitalTimer digitalTimer = new DigitalTimer(this);
 
     public GameFragment() {
         // Required empty public constructor
@@ -75,8 +67,6 @@ public class GameFragment extends Fragment {
     public static GameFragment newInstance(String param1, String param2) {
         GameFragment fragment = new GameFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -85,8 +75,6 @@ public class GameFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
             isTimed = getArguments().getBoolean(IS_TIMED);
             getTimer = getArguments().getInt(SET_TIMER);
         }
@@ -105,7 +93,6 @@ public class GameFragment extends Fragment {
 
         FragmentManager fragmentManager = getParentFragmentManager();
 
-
         scoreboard = requireView().findViewById(R.id.gameScore);
         timerView = requireView().findViewById(R.id.timerView);
         buttons[0] = requireView().findViewById(R.id.hit1);
@@ -120,7 +107,7 @@ public class GameFragment extends Fragment {
         buttons[9] = requireView().findViewById(R.id.hit10);
 
         isUp = true;
-        timerView.setText(getTimerText());
+        timerView.setText(digitalTimer.getTimerText(putTimer));
 
         //-- code for upper-right hand timer visibility
         if (isTimed) {
@@ -187,7 +174,7 @@ public class GameFragment extends Fragment {
             scoreboard.setText(String.valueOf(score));
         }
 
-        timerView.setText(getTimerText());
+        timerView.setText(digitalTimer.getTimerText(putTimer));
     }
 
     @Override
@@ -251,11 +238,11 @@ public class GameFragment extends Fragment {
     public void TimerDigital() {
         if (isUp) {
             final Handler handler = new Handler();
-            timerView.setText(getTimerText());
+            timerView.setText(digitalTimer.getTimerText(putTimer));
             handler.postDelayed(() -> {
                 // Do something after 1s = 1000ms
 
-                timerView.setText(getTimerText());
+                timerView.setText(digitalTimer.getTimerText(putTimer));
                 putTimer--;
 
                 //if seconds and minutes timers are both 0, timer will stop
@@ -272,17 +259,8 @@ public class GameFragment extends Fragment {
         }
 
     } //TimerDigital()
-    private String getTimerText() {
-        int rounded = Math.round(putTimer);
 
-        int seconds = ((rounded % 86400) % 3600) % 60;
-        int minutes = ((rounded % 86400) % 3600) / 60;
 
-        return formatTime(seconds, minutes);
-    }
-    private String formatTime(int seconds, int minutes) {
-        return String.format(Locale.getDefault(),"%02d",minutes) + ":" + String.format(Locale.getDefault(),"%02d",seconds);
-    }
     private int getSeconds() {
         String getTimerText = timerView.getText().toString();
         int getIndex = getTimerText.indexOf(":");
