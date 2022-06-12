@@ -11,3 +11,8 @@ While watching Youtube tutorials for learning Android app development, I saw one
 * For an untimed game, clicking non-mole buttons immediately ends the game.
 * To help determine if you clicked the mole, a hit mole will flash orange, and a hit non-mole will flash red.
 * For a timed game, when the timer at the top-right corner reaches 0, score will be immediately calculated.
+
+## Screenshots
+![image](https://user-images.githubusercontent.com/96768462/173242991-5e52df92-ce44-453f-ae6c-6c4969372083.png)
+![image](https://user-images.githubusercontent.com/96768462/173242998-ce5c7245-030d-4c78-8bda-b03e9708b982.png)
+![image](https://user-images.githubusercontent.com/96768462/173243000-955bf6e8-869e-4874-9a05-1b36b344c1ad.png)
